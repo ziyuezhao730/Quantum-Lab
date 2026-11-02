@@ -1,110 +1,125 @@
-# StudyPack Requirements
+# ExamAce Requirements
 
 Shared specification for a five day hackathon
 
-We will build a small application that turns a student's limited study time into a topic plan and a matching practice set. Idea A allocates time; Idea B retrieves questions for the topics receiving that time. Both use the same reviewed course data and student profile. This document defines what must work and how we will check it.
+ExamAce uses a short diagnostic and a student's available time to produce a personalized study plan and a source-linked practice set. Idea A allocates time; Idea B retrieves practice for the topics receiving that time. A separate Qiskit experiment compares QAOA with the exact classical solver using the same saved student profile.
 
-Read this specification once as a team. Then use Document 02 for individual work and Document 03 for the daily schedule and Git commands. These three documents are the complete planning set; decisions belong in issues rather than additional reports.
+Read this specification once as a team. Document 02 assigns individual work; Document 03 gives the daily schedule and Git commands. Decisions belong in issues rather than additional reports.
 
 ## 1 Product boundary
 
-The core uses one fictional calculus course, twelve reviewed questions, reviewed counts and excerpts from three authored assessments, and one prepared exercise PDF. Its topics are T1 Derivatives, T2 Integrals, and T3 Series. Each receives 0, 30, or 60 minutes within a total budget of up to 180 minutes. Recommend up to two questions per allocated topic. Separate assessment PDFs are optional.
+Use one fictional calculus course with T1 Derivatives, T2 Integrals, and T3 Series. Keep twelve reviewed questions: two diagnostic multiple-choice questions and two practice questions per topic. Also supply reviewed topic counts and excerpts from three short authored assessments. No additional question bank or PDF is required.
 
-The student loads reviewed JSON, enters time and confidence, generates a plan, and opens its source-linked practice set. Changing inputs updates both engines. Extract the single prepared PDF outside the app; upload and editing screens are optional.
+The student answers six diagnostic questions, enters an integer time budget from 0 to 180 minutes, and presses one planning button. The app scores each topic, computes an exact plan, and recommends up to two practice questions per allocated topic. Each topic receives 0, 30, or 60 minutes. No accounts, names, or student database are needed.
 
-Use Python and Streamlit for one local application. Keep the bank in JSON and student inputs in session memory. Use pypdf for text extraction, Pydantic for validation, scikit-learn TF-IDF for initial text matching, and Qiskit with a local statevector simulator for the quantum experiment. This stack is a scope decision for thirty team hours.
+Download the resulting profile as JSON for the separate quantum script. It uses that profile's scores, weights, and budget rather than a hard-coded demonstration student. One real simulator comparison is required; a live quantum button and a multi-profile benchmark are optional.
+
+Use Python, Streamlit, Pydantic, scikit-learn TF-IDF, NumPy, SciPy, Qiskit, and pytest. Student answers stay in session memory or ignored runtime storage. JSON loading replaces required PDF extraction. This exchanges scope within thirty team hours; it does not add overtime.
 
 ## 2 Versions and release boundaries
 
 | Version | End of day | Observable result |
 | --- | --- | --- |
-| V0 Walking skeleton | Day 1 | App loads reviewed sample data, accepts a profile, and calls the agreed interfaces. Placeholders are visibly labelled. |
-| V1 Connected classical product | Days 2 and 3 | Exact study plan drives a source-linked practice set over reviewed JSON. One prepared PDF can be extracted separately. |
-| V2 Core complete | Day 4 | V1 works and a separate Qiskit experiment compares one fixed study instance with its exact reference. Live quantum integration in the app is optional. |
+| V0 Walking skeleton | Day 1 | Reviewed data and agreed interfaces load; a visibly labelled sample profile reaches the planner. |
+| V1 Personalized classical product | Days 2 and 3 | Six answers produce topic scores, an exact allocation, and separate targeted practice. A matching profile snapshot downloads. |
+| V2 Core complete | Day 4 | A separate Qiskit script compares one exported student profile with its exact classical reference. |
 | V2.1 Demo release | Day 5 | Existing behavior is checked, packaged, and rehearsed. No new features. |
 
-Only the core is assigned. Section 10 lists unassigned extensions anyone may volunteer for. None is required for project integrity, acceptance, or a complete V2 release. Nobody inherits an unclaimed extension or owes extra hours.
+Only the core is assigned. Section 10 contains unassigned extensions. None is required for project integrity, acceptance, or a complete V2 release; nobody inherits an unclaimed extension.
 
-Accounts, cloud databases, OCR, community sharing, question generation, automatic marking, multi-course support, and a second quantum question-selection engine remain future directions. A local demo and recorded backup are sufficient deliverables.
+PDF import, generative assessment, free-text marking, accounts, OCR, cloud services, multi-course support, and learning-outcome studies are outside the core. The diagnostic uses answer-key checking. TF-IDF supports retrieval, not assessment. Describe the system as diagnostic-based personalization; do not claim AI-driven assessment, proven learning gains, or quantum advantage.
 
 ## 3 Functional requirements
 
-“Shall” means required for the stated version. An owner delivers the behavior; the independent checker is assigned in Document 02.
+An owner delivers the behavior; Document 02 assigns a different checker and reviewer. Preserve the requirement IDs in issues, but update old issue descriptions to these definitions.
 
 | ID | Requirement and acceptance evidence | Version and owner |
 | --- | --- | --- |
-| FR01 | Load the bundled course without network access. Show three topics and twelve approved questions; all IDs are unique. | V1 Hank |
-| FR02 | Extract text from the single prepared exercise PDF, at most three pages and 3 MB, using a script or function. Preserve source and one-based page numbers. No upload screen or general PDF support is required. | V1 Alex |
-| FR03 | Parse the supplied topic and difficulty markers into candidate JSON. Validate records; flag missing fields instead of guessing. Hank reviews candidates outside the app and freezes the approved bank. Automatic tagging and a review editor are optional. | V1 Alex |
-| FR04 | Accept an integer time budget from 0 to 180 minutes and confidence from 0 to 1 for each topic. Reject missing, nonfinite, or out-of-range inputs with a readable message. | V1 Charlie |
-| FR05 | Return topic allocations in thirty-minute blocks, at most sixty minutes per topic and never over budget. Show used and unused time, including any remainder below thirty minutes. | V1 Risi |
-| FR06 | Select up to two unique approved questions per allocated topic using the ranking rule in section 6. Show difficulty, matching reason, source, page, and an answer reveal when an approved answer exists. | V1 Alex and Charlie |
-| FR07 | Adapt one documented Qiskit example or library ansatz for the fixed AT01 study instance. Run p=1 on a local simulator; validate sampled allocations. A separate runnable script is sufficient. | V2 Risi |
-| FR08 | Save one fixed-instance comparison with its inputs, exact and sampled utility, duration, and feasibility. Label live simulation, replay, and failure. The app need not run Qiskit or display the comparison. | V2 Risi |
-| FR09 | Give readable messages for invalid JSON, unsupported prepared-PDF input, an empty approved bank, no topic match, and zero study time. Extraction errors may be shown by the preparation script. | V1 Alex and Charlie |
-| FR10 | Start from a clean clone using the documented commands; run the smoke check and tests; deliver a release tag and a short demo recording with each person's contribution recorded. | Release Hank |
+| FR01 | Load three topics and twelve approved questions offline: six diagnostic and six practice, two of each per topic. IDs are unique and sources are traceable. | V1 Hank |
+| FR02 | Score six submitted choice IDs against the reviewed diagnostic key. Return each topic's fraction correct; reject incomplete or invalid submissions. | V1 Alex |
+| FR03 | Validate reviewed JSON, question roles, diagnostic choices, answer keys, sources, and counts. Build a validated snapshot containing the current request and topic weights. | V1 Alex |
+| FR04 | Provide one screen with six unanswered choice controls and an integer budget from 0 to 180. Show topic scores, their limited meaning, and a profile download after submission. | V1 Charlie |
+| FR05 | Find the exact best feasible allocation in thirty-minute blocks, at most sixty minutes per topic. Show used and unused time. | V1 Risi |
+| FR06 | Retrieve up to two unique approved practice questions per allocated topic. Exclude all diagnostic questions. Show difficulty, matching reason, source, page, and available answer reveals. | V1 Alex and Charlie |
+| FR07 | Construct the supplied cost model from a validated exported profile. Adapt a documented Qiskit ansatz, run p=1 locally, and validate sampled plans. | V2 Risi |
+| FR08 | Save one comparison using identical scores, weights, and budget for both solvers. Record utility, feasibility, duration, settings, and whether results are live simulation or replay. | V2 Risi |
+| FR09 | Show readable errors for invalid course data, incomplete answers, invalid budget, empty practice, and zero study time. Clear stale results when inputs change. | V1 Alex and Charlie |
+| FR10 | Document clean-clone setup, run checks, and deliver a reviewed release tag and short recording with each person's contribution recorded. | Release Hank |
 
 ## 4 Quality and scope controls
 
-The bundled demonstration shall work without API keys or network access after dependencies are installed. Keep uploads in memory or an ignored runtime folder; do not add personal course material or credentials to Git. Use team-authored demo material and retain its source metadata.
+Work without API keys or network access after installation. Use team-authored material. Keep credentials, actual student profiles, and generated runtime files out of Git. A deliberately fictional example may be retained as experiment evidence.
 
-Target under two seconds for the classical flow. Measure one bounded quantum attempt separately; do not promise a runtime or accuracy improvement. The app remains usable without the experiment. Any later quantum button is optional and must run only on explicit request.
+Target under two seconds for the classical flow. Bound the separate quantum attempt as specified in section 7; measure its runtime without promising an improvement. A failed experiment must not stop the classical app.
 
-Display importance as a heuristic score based on supplied assessments. Confidence is self-reported. Neither is a probability of an exam question appearing, a measured learning gain, or a grade forecast.
+Two questions per topic provide only a coarse initial signal: scores are 0, 0.5, or 1. Display “Initial topic score from two questions”. Importance is a heuristic from supplied assessment counts. Neither quantity predicts grades, establishes mastery, or measures learning gain.
 
 ## 5 Data contracts and integration
 
-Freeze schema version 1 on Day 1. Alex owns src/contracts.py and validates every boundary. Other modules consume these records without renaming fields. Add a field only after posting an example and identifying every consumer in the issue.
+Freeze schema version 1 on Day 1 before implementation. Alex owns src/contracts.py; changes require an issue example and agreement from consumers. If an older schema has already been implemented, coordinate a version bump instead of silently reusing its version number.
 
 | Record | Required fields and meaning |
 | --- | --- |
-| Topic | topic_id, name, importance in [0,1], evidence list. Each evidence item has source_id, page, and excerpt. IDs are T1, T2, T3. |
-| Question | question_id, topic_id, text, difficulty 1/2/3, source_id, page, review_status pending/approved, answer string or null. |
-| CourseData | schema_version=1; topics, questions, sources lists; assessment_count integer; topic_counts mapping. Sources have source_id, filename, kind assessment/exercises/authored, and provenance note. |
-| PlanRequest | budget_minutes integer [0,180], proficiency mapping every topic ID to a finite number [0,1], requested_solver exact/qaoa. |
-| PlanResult | allocations, used_minutes, unused_minutes, utility, feasible, actual_solver, execution_mode, elapsed_ms, fallback_reason or null, warnings list, quantum_metrics or null. |
-| QuantumMetrics | qubits, p, shots, seed, feasible_shot_rate, raw_best_utility or null. Present only for a quantum attempt. |
+| Topic | topic_id, name, importance in [0,1], evidence list containing source_id, page, excerpt. IDs are T1, T2, T3. |
+| Question | question_id, topic_id, text, difficulty 1/2/3, purpose diagnostic/practice, source_id, page, review_status pending/approved, answer string or null. Diagnostic items also require choices mapping choice IDs to text and correct_choice matching a choice ID. |
+| CourseData | schema_version=1; topics, questions, sources; assessment_count integer; topic_counts mapping. Sources have source_id, filename or authored label, kind, provenance note. |
+| DiagnosticResult | submitted_choices mapping six question IDs to valid choice IDs; proficiency mapping all topic IDs to fraction correct. Never accept a client-supplied score without checking answers. |
+| PlanRequest | budget_minutes integer [0,180]; proficiency mapping T1/T2/T3 to finite numbers [0,1]; requested_solver exact/qaoa. |
+| ProfileSnapshot | schema_version=1; profile_source=diagnostic; request containing the submitted budget and computed proficiency; topic_weights mapping all topic IDs to finite numbers [0.5,1]. No personal identity fields. |
+| PlanResult | allocations, used_minutes, unused_minutes, utility, feasible, actual_solver, execution_mode, elapsed_ms, warnings list, quantum_metrics or null. |
+| QuantumMetrics | qubits, p, shots, seed, feasible_shot_rate, raw_best_utility or null. Present only for the quantum attempt. |
 
-The core app requests exact only; qaoa is used by the separate fixed-instance script. execution_mode is live or cached_replay. If a later extension falls back to exact, populate fallback_reason. Keep the request with the result. Optional fields can be null and do not require building extra behavior.
+The app requests exact only. The script copies the snapshot request and changes requested_solver for each run; scores, weights, and budget remain identical. execution_mode is live or cached_replay. A replay always carries its original profile. Do not substitute an exact answer for a quantum sample.
 
 ### Callable interfaces
 
 ```python
-extract_pdf(file_bytes, source_id) -> list[PageText]
-parse_prepared_exercises(pages) -> list[Question]
 load_course(json_path) -> CourseData
 validate_course(candidate) -> CourseData
-solve_plan(course, request) -> PlanResult
+score_diagnostic(course, submitted_choices) -> DiagnosticResult
+make_snapshot(course, request) -> ProfileSnapshot
+validate_snapshot(candidate) -> ProfileSnapshot
+solve_plan(topic_weights, request) -> PlanResult
 select_questions(course, plan, proficiency) -> list[PracticeItem]
 ```
 
-CourseData.topic_counts maps topic IDs to counts from 0 to assessment_count; the loader computes importance. PageText has source_id, page, text. PracticeItem has question_id, score, reason. PlanResult.allocations maps every topic ID to integer minutes, for example {"T1":0,"T2":60,"T3":30}. quantum_metrics is null or a QuantumMetrics record. Use consistent validation errors and readable warnings. No Streamlit imports inside intelligence or optimizer modules.
+PracticeItem contains question_id, score, reason. Allocations map all topic IDs to integer minutes. No intelligence or optimizer module imports Streamlit. Alex owns scoring and serialization; Charlie calls those functions and displays their results; Risi consumes the same validated weights and request.
 
-### Supported exercise format
+Charlie uses ordinary Streamlit widgets with change callbacks and no initial choice selection; avoid st.form, which batches changes. A single planning button submits the inputs. On submit, Alex's scorer validates all six answers; the app builds the request, solves, retrieves, and offers snapshot JSON through one standard download button. Save it as runtime/student_profile.json for the command in Document 03. This is a file handoff, not a quantum service.
 
-The authored exercise PDF uses numbered items such as “1. [T1] [D1] Differentiate x^2.” followed by “Answer: 2x”. D1, D2, and D3 map to difficulty 1, 2, and 3. A source and page are attached during extraction. The parser may flag items without topic or difficulty markers for manual completion; it must not silently invent an answer. Count historical frequency from sources marked assessment, never from the exercise bank.
+Any changed answer or budget clears the previous plan, practice, and download until resubmission. Keep two fictional response sets in data/demo/student_cases.json so the same flow can be checked without real student data.
 
-### How the modules meet
+## 6 Personalization and optimization model
 
-Charlie loads Alex's validated JSON, calls Risi's exact planner, and calls Alex's question selector. Hank supplies the same fixtures. Extraction writes candidates to ignored runtime storage; Hank approves records in data/demo/course.json. The quantum script uses a fixed copy of AT01 and produces its own report. It does not depend on app wiring.
+The utility is an explicit study-priority heuristic, not a prediction of learning. Use the same formula for both solvers.
 
-When budget or confidence changes, invalidate the previous plan and practice set. There is no required in-app editor. Keep generated candidates, caches, and student profiles outside tracked demo JSON.
+### Diagnostic scoring and practice
 
-## 6 Planning model and question ranking
+For topic i, p_i is correct diagnostic answers divided by two. Use only its two approved diagnostic items; do not blend in self-reported confidence or build a history model. A missing answer is an incomplete submission, not an incorrect answer. One changed response need not always change the allocation; check the deliberately selected contrasting cases below.
 
-The model is deliberately small enough to inspect completely. It is a resource-allocation prototype; the utility is an explicit heuristic, not an estimate of actual learning.
+Validate exactly two diagnostic and two practice items per topic. Diagnostic items have at least two distinct choices and one valid key; verify the mathematical answer manually. Keep diagnostics out of recommended practice. Practice answers may be null and must be labelled unavailable.
 
-### Topic value and allocation
+For each allocated topic, compare its approved practice text with the topic's authored assessment excerpts plus topic name using TF-IDF cosine similarity. Use the topic name if excerpts are absent. Target difficulty is 1 for p_i<0.4, 2 for 0.4<=p_i<0.7, and 3 otherwise. Rank by 0.7 similarity + 0.3 exact difficulty match; break ties by question ID. Deduplicate normalized text while preserving mathematical symbols. Return at most two per topic, ordered by allocated time then topic ID. Show available items and a shortage message when necessary.
 
-For each topic i, let f_i be its reviewed assessment count divided by the number of assessments. Hank supplies the counts and source excerpts in reviewed JSON; Alex computes w_i = 0.5 + 0.5 f_i. Count each assessment once per topic. If no evidence is supplied, use w_i = 0.5 with a warning. Extracting these counts automatically from PDFs is optional.
+### Topic values and exact allocation
 
-With confidence p_i, define a_i = w_i (1 - p_i). The first thirty-minute block has value a_i; the second has value 0.5 a_i. This simple diminishing-return rule is inspectable and can be replaced after the hackathon.
+Let f_i be the number of supplied assessments mentioning topic i divided by assessment_count. Count each assessment once per topic. Compute w_i = 0.5 + 0.5 f_i from reviewed counts; if there are no assessments, use 0.5 with a warning. Automatic extraction is optional.
 
-Let x_i1 and x_i2 be binary choices for those blocks. Require x_i2 <= x_i1 and sum(x_ij) <= B, where B = floor(budget_minutes / 30). Maximize V = sum(a_i x_i1 + 0.5 a_i x_i2). Break utility ties by fewer blocks, then topic ID order. Unused time is allowed.
+Define a_i = w_i(1-p_i). The first thirty-minute block has value a_i; the second has value 0.5a_i. For binary block choices x_i1 and x_i2, maximize V = sum_i(a_i x_i1 + 0.5a_i x_i2), subject to x_i2<=x_i1 and sum(x_ij)<=B, where B=floor(budget_minutes/30). At most two blocks per topic are available. Break utility ties by fewer blocks, then lexicographically prefer more blocks for earlier topic IDs.
 
-### Fixed quantum experiment
+Enumerate all 27 topic allocations for the exact solution. Unused time and a sub-thirty-minute remainder are allowed. At p_i=1, the exact solver assigns no block to that topic under the fewer-blocks tie rule.
 
-Use the AT01 fixture only: three unit weights, confidence 0.8/0.2/0.4, and a ninety-minute budget. There are six topic variables and two slack bits for B=3. The formula below is supplied; a reusable converter for arbitrary inputs is optional. Encode unused whole blocks as nonnegative binary slack s.
+### Contrasting student examples
+
+With the same ninety-minute budget and test-only unit weights, Student A scores T1=1, T2=0, T3=0.5. The exact plan is T1=0, T2=60, T3=30, utility 2.0. Student B scores T1=0, T2=1, T3=0.5; the plan becomes T1=60, T2=0, T3=30, also utility 2.0. The topic sets in their practice differ. Hank supplies fictional choice IDs that produce these scores.
+
+These are tests of personalized behavior under specified inputs. Actual demo weights use the reviewed counts; calculate the exact reference anew rather than copying 2.0 into an experiment report.
+
+## 7 Quantum experiment
+
+### Supplied cost construction
+
+Use the three-topic model only. Keep three slack bits for every allowed budget: s=y0+2y1+4y2. Six topic bits plus three slack bits give nine qubits. For the exported profile, compute a_i, B, and the following energy:
 
 ```text
 P = 1 + 1.5 * sum_i(a_i)
@@ -112,95 +127,83 @@ E = -V + P * (sum_i,j(x_ij) + s - B)^2
        + P * sum_i[x_i2 * (1 - x_i1)]
 ```
 
-Minimize E. Any violated integer constraint costs at least P, which exceeds the largest possible utility. The empty plan with slack B is feasible. Expand squared binary terms using x^2=x, and convert x=(1-Z)/2 to an Ising cost. Preserve the constant offset when checking energies.
+Order bits z=(x11,x12,x21,x22,x31,x32,y0,y1,y2). Use c=(1,1,1,1,1,1,1,2,4) and v=(a1,0.5a1,a2,0.5a2,a3,0.5a3,0,0,0). The binary polynomial is C+sum L_j z_j+sum_{j<k} Q_jk z_j z_k, with:
 
-Adapt the documented QAOA pattern using Qiskit QAOAAnsatz(reps=1) and Statevector. Reuse its initial state and mixer; do not write custom RZ/RZZ/RX construction for the core. Supply the fixed study cost operator and check bit ordering on known allocations. Use one seed, one initial parameter choice, at most thirty classical objective evaluations, and 1,024 final samples. Keep the reference and adapted code changes in the model note.
+```text
+C = P*B^2
+L_j = P*c_j^2 - 2*P*B*c_j - v_j + P*is_second_block(j)
+Q_jk = 2*P*c_j*c_k - P*is_same_topic_block_pair(j,k)
+```
 
-Keep the best feasible sampled plan by V; do not insert the exact answer into sampled candidates. If the attempt fails, record failure and the exact result separately; do not create app fallback machinery for this experiment. The required goal is one working, explainable comparison, not a tuning framework. This tiny problem is easy classically; no quantum advantage is claimed.
+Convert z_j=(1-Z_j)/2: the Z_j coefficient is -L_j/2-sum_{k!=j}Q_jk/4; the Z_j Z_k coefficient is Q_jk/4; the constant offset is C+sum L_j/2+sum Q_jk/4. Include every pair once. Preserve the offset for energy checks. Bit j maps to Qiskit qubit j; reverse displayed bitstrings before interpreting them as z in index order.
 
-### Question selection rule
+This supplied formula covers only the agreed small model, avoiding a general converter. Every violated integer constraint costs at least P, greater than the maximum possible V. A feasible empty plan has s=B. Feasibility checking includes slack equality and block ordering, not just the displayed time total.
 
-For each allocated topic, compare approved question text with that topic's assessment excerpts plus its name. Use TF-IDF cosine similarity, with a topic-name query when excerpts are absent. Set target difficulty to 1 if confidence <0.4, 2 if 0.4 <= confidence <0.7, and 3 otherwise. Rank by 0.7 similarity + 0.3 exact difficulty match; break ties by question ID. Remove exact duplicates after case and whitespace normalization, preserving mathematical symbols. Take at most two per topic, ordering topics by allocated minutes then topic ID. If fewer exist, show the available items and a shortage message. This is text matching; call it semantic search only if an embedding method is actually added and checked.
+### One bounded comparison
 
-## 7 Acceptance checks and experiment evidence
+Adapt QAOAAnsatz(reps=1) and Statevector with the generated cost operator. Reuse its initial state and mixer. Use seed 7, one initial parameter choice, at most thirty classical objective evaluations, and 1,024 final samples. Optimize expected energy, then choose the best feasible sampled plan by V, applying the same tie rule among those samples. Custom gates, multiple starts, and a tuning framework are optional.
 
-Use the following checks as release gates. The automated checks belong to their assigned tester; manual UI checks belong in tests/check_ui.md. Keep the expected outcomes fixed before changing the implementation.
+Run once on a diagnostic-exported fictional profile. Save the entire snapshot, code commit, reference, parameters, qubit count, exact utility, best feasible sampled utility, feasible-shot rate, absolute utility gap, and durations of the exact solve and complete QAOA attempt including operator construction. If no feasible sample exists, record null and failure; fix within the allocated time before calling V2 complete. Never silently insert the exact solution.
 
-| Check | Fixed input | Expected outcome |
+A single simulated run is a case study. Report solution quality and constraint satisfaction; do not infer statistical reliability, hardware runtime, speedup, or student learning gains. Extended evaluation remains optional OP04.
+
+## 8 Acceptance and release evidence
+
+The assigned checker writes the automated check or concrete manual procedure. Keep expected outcomes fixed before changing implementation.
+
+| Check | Input | Expected outcome |
 | --- | --- | --- |
-| AT01 Hand calculation | Test-only weights all 1; confidence T1=0.8, T2=0.2, T3=0.4; budget 90 | Exact plan T1=0, T2=60, T3=30; utility 1.8 within numerical tolerance. |
-| AT02 Budget boundary | Same fixture; budgets 0, 15, 45, and 180 | Never overspend; 0 and 15 allocate no blocks; 45 uses at most 30 minutes; each topic <=60. |
-| AT03 Personalization | AT01 but T2 confidence becomes 0.9 | Exact plan T1=30, T2=0, T3=60; utility 1.1. Practice set contains T1 and T3 only. |
-| AT04 Data quality | Repeated question ID, unknown topic, missing source page, malformed numeric value | Validator identifies the bad record. Pending questions are not retrieved. |
-| AT05 Retrieval | Six frozen queries with acceptable question IDs in retrieval_cases.json | Record actual hit@2 and wrong-topic count. Target at least 5/6 hits and zero wrong-topic recommendations. |
-| AT06 Prepared PDF | Supplied numbered exercise PDF and one unsupported or malformed input | Candidate JSON preserves markers and page references; unsupported input produces a readable message. Wider format coverage is optional. |
-| AT07 Fixed quantum case | AT01 plus known empty, optimal, and constraint-violating allocations | Check energy and bit decoding on those examples; record one real simulator attempt and a feasible sampled plan. Exhaustive model scans are optional. |
-| AT08 Honest results | Fixed experiment report, saved replay, changed app confidence | Report identifies its fixed inputs and execution mode; it is not presented as the current app plan. Changing app inputs clears stale practice output. |
-| AT09 Reproducibility | Fresh clone on a second machine or clean environment | Setup, tests, smoke check, and demo launch succeed using HOW-TO-RUN.md. |
+| AT01 Model oracle | Unit weights; p=(0.8,0.2,0.4); budget 90 | Exact allocation (0,60,30), utility 1.8 within 1e-8. Model-only test; these scores need not come from the six-item diagnostic. |
+| AT02 Budget limits | Oracle with budgets 0,15,45,180 | No overspend; 0 and 15 allocate no blocks; 45 uses at most 30; every topic <=60. |
+| AT03 Personalization | Fictional Student A and B answers from section 6; unit weights | Scores and allocations match section 6; practice topic sets differ; no diagnostic item appears. |
+| AT04 Data validation | Duplicate ID, wrong role counts, missing source, invalid diagnostic key, malformed number | Reject the bad record with its reason. Pending items never become diagnostic or practice output. |
+| AT05 Retrieval | Six frozen cases naming a target topic, proficiency, and acceptable top question IDs | At least 5/6 hit@1 and no wrong-topic or diagnostic recommendations. Record actual results. |
+| AT06 Diagnostic and export | All correct, all wrong, partial, invalid choice; then submit a valid profile | Scores 1 or 0 as appropriate; incomplete/invalid answers rejected. Downloaded scores, weights, and budget match the submitted plan. |
+| AT07 Quantum model | Empty, known-optimal, and ordering-violating bit assignments; budgets 0,3,6 blocks | Binary and Ising energies including offset agree. Valid examples pass decoding; invalid examples fail. One exported-profile simulation yields a feasible sampled plan. |
+| AT08 State and report | Change answer/budget after submit; compare saved snapshot with report | Clear old app output/download. Report retains its original inputs and labels simulation/replay. Both solvers use identical problem data. |
+| AT09 Reproducibility | Fresh clone or clean environment on a second machine | Setup, tests, smoke, app launch, profile export, and script command work using HOW-TO-RUN.md. |
 
-AT01 and AT03 deliberately inject unit weights into the test model; the displayed demo weights still come from the assessment-counting rule. Comparing floating-point utility should use a tolerance such as 1e-8.
+AT01 and AT03 inject unit weights into the test model only. Core V1 requires the personalized classical workflow, export, and its checks. Core V2 also requires the actual Qiskit comparison and its checks. Use V1 if the quantum experiment is unfinished. No optional feature substitutes for a failed core check.
 
-### Required experiment record
+## 9 Demonstration and release
 
-Record one run of AT01 with seed 7, p=1, and 1,024 samples. Save the input, adapted-example reference, parameter settings, qubit count, raw sampled utility, exact utility 1.8, feasibility, and elapsed time. If no feasible sample exists, use null for sampled utility and state the failure. This is a small demonstration, not a statistical benchmark or a claim about student grades.
+### Four minute demonstration
 
-The nine-run benchmark, multiple starts, tuning comparisons, and exhaustive QUBO/Ising scans belong only to optional item OP04. They are not release gates. A core feature is complete after its listed checks pass, even if nobody claims those additional experiments.
+1. Hank introduces the student problem and the reviewed fictional course.
+2. Charlie submits six answers and a budget, shows initial topic scores, and downloads the snapshot. Preselect the fictional demonstration responses before the timed presentation.
+3. Alex traces an answer through scoring, validation, and practice retrieval. Show the contrasting second student's different plan using the same course and budget.
+4. Risi opens the comparison for the first saved profile and explains the objective, constraints, exact reference, and simulator limitation. A labelled replay avoids waiting during the presentation.
+5. Hank closes with the checked release and known scope. Allow roughly forty-five seconds per speaker plus transitions.
 
-## 8 Release checklist and demonstration
+Keep merged PRs, reviewed fixtures, actual test results, a fictional-profile comparison, setup instructions, release tag, screenshot, and short recording. Each person records their completed and understood contribution. No separate learning phase or additional report set is required.
 
-A feature is done when its requirement is met, its assigned check passes, another person reviews it, the pull request is merged, and the board shows its true state. A component can be complete while a stretch feature remains deferred.
+Suggested project description: ExamAce uses a short diagnostic and available study time to produce a personalized study plan and targeted practice. We investigate QAOA through Qiskit simulation and compare it with an exact classical baseline on one student-specific allocation problem. The experiment evaluates our heuristic objective, not actual learning outcomes.
 
-A complete V2 consists of the usable V1 app, prepared-format extraction, the single fixed Qiskit comparison, and the required check evidence. A separate quantum script satisfies FR07 and FR08. Every item in section 10 may remain unclaimed and unfinished without weakening that completion status. If a core quantum run does not work, report the release as V1 and state that limitation; optional work cannot replace a core check.
+### Design references
 
-### Four minute demo route
+- IBM QAOA tutorial: https://quantum.cloud.ibm.com/docs/en/tutorials/quantum-approximate-optimization-algorithm
+- Qiskit QAOAAnsatz: https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.QAOAAnsatz
+- Qiskit Statevector: https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.quantum_info.Statevector
+- scikit-learn text features: https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
+- Original product discussion: https://chatgpt.com/share/6ae78927-ee70-83ea-bac8-cbb44a363eea
 
-1. Hank introduces the student problem and loads the reviewed fictional course, naming the data scope.
-2. Alex shows extraction from the prepared PDF and traces an approved question and its importance evidence in JSON.
-3. Charlie enters a ninety-minute budget and confidence values, generates a classical plan, and opens the linked practice set.
-4. Risi opens or runs the separate fixed-instance Qiskit comparison, identifies its inputs, and explains the exact reference and one limitation.
-5. Charlie changes one confidence value and shows the refreshed plan and questions. Hank closes with the tested scope and release evidence.
-
-Aim for roughly forty-five seconds per speaker, with transition time. Do not add slides unless the submission rules require them. Rehearse on the actual laptop with a recorded fallback available and visibly identified.
-
-### Evidence to keep
-
-- Merged issues and pull requests showing each person's implementation, testing, and review contributions.
-- Reviewed assessment counts and excerpts, the prepared exercise PDF, approved JSON, and the small gold-query file.
-- One fixed quantum run report with its inputs, test outcomes, and one screenshot of the working app. A larger benchmark and custom circuit drawing are optional.
-- HOW-TO-RUN.md, the release tag, a brief demo script, and a short recording. Store large video outside Git if necessary and place its link in the delivery notes.
-
-Use only completed, personally understood contributions in resume statements. Numbers must come from these artifacts. It is useful to explain why exact enumeration is the sensible production solver for this tiny instance and why QAOA is an experiment.
-
-## 9 Design references
-
-- Shared product discussion: https://chatgpt.com/share/6ae78927-ee70-83ea-bac8-cbb44a363eea
-- IBM QAOA tutorial describes the alternating cost and mixer workflow: https://quantum.cloud.ibm.com/docs/en/tutorials/quantum-approximate-optimization-algorithm
-- IBM QAOAAnsatz supplies the reusable circuit template: https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.circuit.library.QAOAAnsatz
-- IBM Statevector API supports local circuit simulation and sampling: https://quantum.cloud.ibm.com/docs/en/api/qiskit/qiskit.quantum_info.Statevector
-- pypdf text extraction documents the limits of image-only PDFs: https://pypdf.readthedocs.io/en/stable/user/extract-text.html
-- scikit-learn text feature documentation supports the TF-IDF baseline: https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction
-
-Consult references while implementing; explanations belong inside the scheduled work blocks.
+Consult references while implementing; explanations belong within the scheduled work blocks.
 
 ## 10 Optional work that anyone may claim
 
-All items below are unassigned and outside the required scope. They are not required for project integrity, core acceptance, or a complete V2 release. No person is expected to complete them, and an unclaimed item is not a missing contribution. The main app, demo, and core checks must work with every optional item absent.
+Every item below is unassigned and outside the required scope. None is needed for project integrity, core acceptance, or a complete V2 release. An unclaimed item is not a missing contribution. All core code, checks, and the demo work with every extension absent.
 
-### How to claim an extension
-
-After completing your core slice and its checks, voluntarily assign yourself one optional issue on the board. Include the extension ID, intended output, a personal time limit, and any files you need to borrow. Coordinate with the existing file owner; a claim does not transfer ownership of shared contracts. Keep optional work in a separate branch and PR. Anyone can claim any item; none is reserved for a named workstream.
-
-Use only genuinely spare or voluntary time. Preserve the daily integration buffer. Optional work does not add an obligation to another member, including a reviewer; arrange review only when core work permits. At the time limit, stop and leave the issue deferred if unfinished. Do not merge a partial extension that breaks the baseline. The Thursday feature freeze still applies.
+After core checks pass, anyone may voluntarily claim one issue. State its output, personal time limit, affected files, and extension ID. Coordinate borrowed files with their owner. Use a separate branch and PR. Do not impose extra time on a reviewer or another owner. Preserve the buffer and feature freeze; stop and defer when the time limit is reached.
 
 | Extension | Additional outcome beyond the core | Claim status |
 | --- | --- | --- |
-| OP01 Wider document import | Multiple PDFs, broader textbook layouts, automatic topic tags or counts, and an upload/review editor. The prepared-format script remains the baseline. | Unassigned |
-| OP02 Live quantum planning | Rebuild the cost for arbitrary budgets and profiles and connect Qiskit to the app, including cache invalidation and explicit fallback labels. | Unassigned |
-| OP03 Custom quantum circuit | Construct cost and mixer gates directly, compare them with the library ansatz, and explain coefficients and offsets. | Unassigned |
-| OP04 Extended evaluation | Three profiles times seeds 7, 11, and 23; multiple starts; full QUBO/Ising scans including offsets; and a comparison chart. Keep raw and fallback results separate. | Unassigned |
-| OP05 AI extraction adapter | One provider converts text into candidate records; the existing validator, source references, and manual approval still apply. | Unassigned |
-| OP06 Embedding retrieval | Compare an embedding method with TF-IDF on frozen queries; report actual results and keep the working baseline. | Unassigned |
-| OP07 More demonstration material | Extra reviewed questions, separately typeset assessment PDFs, additional query cases, or additional failure fixtures. | Unassigned |
-| OP08 Presentation polish | Custom styling, extra visualizations, exports, circuit artwork, or an enhanced recording. The plain working demo is sufficient. | Unassigned |
+| OP01 Document import | Extract one prepared marked PDF; optionally extend formats, topic tagging, or upload/review screens. PDF extraction is no longer required. | Unassigned |
+| OP02 Live quantum planning | Connect Qiskit to the app with explicit execution, cache invalidation, result labels, and fallback handling. Saved-profile script remains sufficient. | Unassigned |
+| OP03 Custom quantum circuit | Construct gates directly and compare with the library ansatz; explain coefficients and offsets. | Unassigned |
+| OP04 Extended evaluation | More student profiles, seeds 7/11/23, multiple starts, exhaustive model scans, or comparison charts. | Unassigned |
+| OP05 AI assessment or extraction | Add and evaluate an AI-based assessment or text extraction method. Preserve reviewed keys, provenance, and the working baseline. | Unassigned |
+| OP06 Embedding retrieval | Compare embeddings with TF-IDF on frozen queries and report actual results. | Unassigned |
+| OP07 More material | Additional reviewed questions, assessment PDFs, diagnostic items, or failure cases. | Unassigned |
+| OP08 Presentation polish | Custom styling, visualizations, additional exports, artwork, or an enhanced recording. | Unassigned |
 
-These are separate projects of varying effort, not promised one-evening tasks. Do not begin several at once. Accounts, public community sharing, cloud databases, OCR, and adaptive learning remain future directions outside this five-day plan.
+These are projects of varying effort, not promised one-evening tasks. No optional quota is assigned. Accounts, public sharing, cloud databases, OCR, adaptive histories, and learning-outcome studies remain future directions outside this five-day plan.

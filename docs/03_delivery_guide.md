@@ -1,4 +1,4 @@
-# StudyPack Five Day Delivery Guide
+# ExamAce Five Day Delivery Guide
 
 Daily schedule communication and Git workflow
 
@@ -19,10 +19,10 @@ The Tuesday lecture adds two hours for its attendees; it is not included in the 
 
 | Day | Team result by stand-up | Individual outputs |
 | --- | --- | --- |
-| 1 Monday Nov 2 | V0 and schema freeze | Risi allocator first pass; Alex contracts/JSON; Charlie inputs; Hank baseline/data. |
-| 2 Tuesday Nov 3 | V1 first pass and fixture freeze | Risi exact checks; Alex ranking; Charlie practice flow; Hank reviewed bank/counts and prepared PDF. |
-| 3 Wednesday Nov 4 | V1 checked and quantum adaptation started | Risi adapts a library example; Alex prepared-format extraction; Charlie state; Hank smoke/query checks. |
-| 4 Thursday Nov 5 | Core V2 candidate and feature freeze at 9 PM | Risi one fixed quantum report; Alex pipeline checks; Charlie core UI fixes; Hank clean-clone check. |
+| 1 Monday Nov 2 | V0 and schema freeze | Risi allocator first pass; Alex course/profile contracts; Charlie diagnostic form; Hank baseline/data. |
+| 2 Tuesday Nov 3 | V1 first pass and fixture freeze | Risi exact checks; Alex scoring/snapshot; Charlie connected form; Hank reviewed keys/counts and fictional responses. |
+| 3 Wednesday Nov 4 | V1 checked and quantum adaptation started | Risi adapts a library example; Alex practice ranking; Charlie export/state; Hank smoke/query checks. |
+| 4 Thursday Nov 5 | Core V2 candidate and feature freeze at 9 PM | Risi one student-profile quantum report; Alex pipeline checks; Charlie core UI fixes; Hank clean-clone check. |
 | 5 Friday Nov 6 | V2.1 release and demo backup | Fix only release blockers; rehearse; capture evidence; tag the tested commit. |
 
 Plan 225 minutes of focused core work, seventy-five minutes of implementation buffer, seventy-five minutes of checks/review, and seventy-five minutes of stand-ups per person. Total is seven and a half hours each. There is no separate learning phase and no expected work after 9:30 PM. If a core task overruns, stop, report the blocker, and adjust the next slice. Optional items never become someone else's obligation. No estimate is a guarantee of equal effort.
@@ -45,9 +45,9 @@ Owners choose internal details. Coordinate contract, dependency, and shared-file
 
 - If setup is blocked after fifteen minutes on Day 1, use one working development environment for the demo and continue with component examples; Hank resolves installation during the next allocated work slice.
 - If the classical flow is behind on Day 2, use Day 3's core buffer before starting any optional work. Keep reviewed JSON as the app input.
-- If extraction is blocked, support only the supplied marked exercise PDF with a separate script. Do not expand formats, add AI tagging, or build an upload editor to solve that blocker.
-- If quantum adaptation is blocked, reuse the documented library ansatz for the one fixed fixture. Live app integration, custom gates, and larger benchmarks are optional and must not consume the core recovery time.
-- At 9 PM on Day 4, freeze features. A complete core V2 needs the separate fixed quantum run, not a quantum button. If that core run fails, label the release V1 and state the actual status.
+- Required PDF extraction has been replaced by diagnostic scoring and snapshot validation. Keep all PDF work optional OP01. Do not add AI marking, free-text answers, or an extra confidence-input path.
+- If quantum adaptation is blocked, use the supplied three-topic coefficient formulas and documented library ansatz. By Day 2, Alex supplies a sample snapshot so Risi does not wait for UI completion. Keep live wiring, custom gates, and larger benchmarks optional.
+- At 9 PM on Day 4, freeze features. A complete core V2 needs the separate exported-profile quantum run, not a quantum button. If that core run fails, label the release V1 and state the actual status.
 - On Day 5, protect the working core and recording. Optional items may remain unclaimed or deferred without affecting completion.
 
 The optional backlog is Document 01 section 10. A volunteer claims one issue only after core checks pass, states a personal time limit, and coordinates affected files. It stays in a separate PR. Review may wait until the core is ready; no other member owes extra time. Unfinished optional work stays out of the release, and no optional item is a release gate.
@@ -68,15 +68,15 @@ Everyone should be able to explain their own completed change using its input, o
 
 ## 4 Repository layout and edit boundaries
 
-Create a standalone repository for this hackathon. Use one shared origin and one main branch. Each person makes their own clone. There is no course upstream remote and no need to copy the SE101 application or its database setup.
+Use the existing Quantum-Lab repository with one shared origin and main branch. Each person has their own clone; do not initialize another repository inside it. There is no course upstream remote and no need to copy the SE101 application or its database setup.
 
 ```text
-studypack/
+Quantum-Lab/
   app.py                          Charlie
   src/
     contracts.py                  Alex
     intelligence/                 Alex
-      pdf_extract.py  validate.py  pipeline.py  rank.py
+      assess.py  validate.py  pipeline.py  rank.py
     optimizer/                    Risi
       model.py  classical.py  quantum_demo.py
     ui/                           Charlie
@@ -88,7 +88,7 @@ studypack/
     check_ui.md                   Alex
   data/demo/                      Hank
     course.json  oracle.json  retrieval_cases.json
-    exercises.pdf
+    student_cases.json
   scripts/smoke.py                 Hank
   docs/
     model.md                      Risi
@@ -97,7 +97,7 @@ studypack/
     decisions.md  delivery/       Hank
     standups/                     one file per person
   evidence/                       one folder per person
-  runtime/                        ignored uploads and cache
+  runtime/                        ignored student snapshots and generated output
   README.md  HOW-TO-RUN.md         Hank
   requirements.in  requirements.txt  .gitignore   Hank
 ```
@@ -110,24 +110,24 @@ Keep implementation changes under roughly two hundred changed lines when practic
 
 ## 5 Repository and environment setup
 
-These are commands to run when implementation starts; this planning pack does not create or publish a repository. Use GitHub pull requests or GitLab merge requests consistently. Both use the same local commands below. Have an empty remote named studypack ready, and replace REPO_URL with its actual clone URL. Never paste account tokens into commands or files.
+The existing private repository is https://github.com/ziyuezhao730/Quantum-Lab. Accept its collaborator invitation first. Clone once; if it is already on your machine, open that folder and skip cloning. Do not run git init or add origin again. Never paste tokens into files or commands.
 
 ### One time bootstrap by Hank
 
 ```bash
-mkdir studypack
-cd studypack
-git init -b main
-git remote add origin REPO_URL
+git clone https://github.com/ziyuezhao730/Quantum-Lab.git
+cd Quantum-Lab
+git switch main
+git pull --ff-only origin main
 mkdir -p src/intelligence src/optimizer src/ui tests data/demo
 mkdir -p scripts docs/standups docs/delivery evidence runtime
 touch src/__init__.py src/intelligence/__init__.py
 touch src/optimizer/__init__.py src/ui/__init__.py
 ```
 
-These commands assume a completely empty remote with no initial README. In an editor, create the named module placeholders, README.md, HOW-TO-RUN.md, and requirements.in. The first dependency list is streamlit, pypdf, pydantic, numpy, scipy, scikit-learn, qiskit, and pytest, one per line. Use Python 3.12 on all four machines if available; agree one working version on Day 1 and record it.
+Keep the existing docs/ planning files and .gitignore. In an editor, create missing module placeholders, README.md, HOW-TO-RUN.md, and requirements.in. The core dependency list is streamlit, pydantic, numpy, scipy, scikit-learn, qiskit, and pytest, one per line. pypdf belongs to optional PDF work. Use Python 3.12 on all four machines if available; agree one working version on Day 1 and record it.
 
-Create .gitignore before staging anything:
+Ensure .gitignore contains these entries before staging; preserve any existing useful rules:
 
 ```gitignore
 .venv/
@@ -157,7 +157,7 @@ git push -u origin main
 
 Only Hank updates the lock file, from this clean project environment. On Windows PowerShell use py -3.12 -m venv .venv, then .\.venv\Scripts\Activate.ps1; create the same folders/files in the editor instead of the Unix mkdir/touch commands. Other commands use python after activation. If activation is unavailable, invoke the environment's Python executable directly; do not change machine security settings for this project.
 
-All other members then clone REPO_URL, create the same environment, and install with python -m pip install -r requirements.txt. Do not regenerate the lock file in individual component branches. Installation time belongs to the Day 1 budget.
+All other members clone the same URL once, or pull main in their existing clone, create the environment, and install with python -m pip install -r requirements.txt. Do not regenerate the lock file in individual component branches. Installation time belongs to the Day 1 budget.
 
 ## 6 Daily branch and review workflow
 
@@ -266,7 +266,13 @@ python scripts/smoke.py
 python -m streamlit run app.py
 ```
 
-The team implements these checks. Complete the manual UI procedure. In a second activated terminal, run python -m src.optimizer.quantum_demo for the fixed experiment. Optional benchmarks are not acceptance requirements. Hank records commands, outcomes, commit, Python version, and limitations in docs/delivery/results.md.
+The team implements these checks. Complete the manual diagnostic, personalization, and invalidation procedure. Download the fictional student snapshot from the app and save it as runtime/student_profile.json. In a second activated terminal, run:
+
+```bash
+python -m src.optimizer.quantum_demo --profile runtime/student_profile.json
+```
+
+The --profile argument is part of Risi's required script interface. It reads the snapshot and compares the same problem with both solvers. Keep actual profiles in ignored runtime storage; retain only an explicitly fictional copy as evidence. Optional benchmarks are not acceptance requirements. Hank records commands, outcomes, commit, Python version, and limitations in docs/delivery/results.md.
 
 On Thursday, Charlie or Hank repeats setup in a second clone or clean environment. On Friday, record the working route before attempting last fixes. Confirm the event's submission deadline, demo length, repository visibility, and AI disclosure rules in Day 1's existing coordination block; place the confirmed details in the delivery issue. The dates here are planning dates, not an assertion of the organizer's deadline.
 
