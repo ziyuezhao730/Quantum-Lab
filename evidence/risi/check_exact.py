@@ -1,4 +1,2 @@
-from src.optimizer.model import priority, value
+from src.optimizer.model import topic_priority, topic_utility
 
-print(value(priority(1.0, 0.2), 30))
-print(value(priority(1.0, 0.2), 60))
