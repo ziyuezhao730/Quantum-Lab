@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "topics": [
+    {
+      "topic_id": "T1",
+      "name": "Derivatives",
+      "importance": 0.8333333333333334,
+      "evidence": [
+        {
+          "source_id": "SRC-A1",
+          "page": 1,
+          "excerpt": "Q1 Differentiate f(x) = x^3 - 3x^2 + 2x. Q2 Find the tangent line to y = x^2 at x = 3."
+        },
+        {
+          "source_id": "SRC-A3",
+          "page": 1,
+          "excerpt": "Review items: apply the chain rule to ln(x^2 + 1); state a tangent line in point-slope form."
+        }
+      ]
+    },
+    {
+      "topic_id": "T2",
+      "name": "Integrals",
+      "importance": 0.6666666666666666,
+      "evidence": [
+        {
+          "source_id": "SRC-A1",
+          "page": 1,
+          "excerpt": "Q3 Evaluate the definite integral of 3x^2 + 2x on [0, 1]."
+        }
+      ]
+    },
+    {
+      "topic_id": "T3",
+      "name": "Series",
+      "importance": 0.8333333333333334,
+      "evidence": [
+        {
+          "source_id": "SRC-A2",
+          "page": 1,
+          "excerpt": "Q1 Which listed series converges? Q2 Sum the geometric series with ratio 1/2."
+        },
+        {
+          "source_id": "SRC-A3",
+          "page": 1,
+          "excerpt": "Review items: radius of convergence by the ratio test; Taylor expansion of ln(1 + x)."
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "Q-T1-D1",
+      "topic_id": "T1",
+      "text": "Differentiate f(x) = x^3 - 3x^2 + 2x. What is f'(1)?",
+      "difficulty": 1,
+      "purpose": "diagnostic",
+      "source_id": "SRC-BANK",
+      "page": 1,
+      "review_status": "approved",
+      "answer": "-1",
+      "choices": {
+        "A": "-1",
+        "B": "1",
+        "C": "7",
+        "D": "-5"
+      },
+      "correct_choice": "A"
+    },
+    {
+      "question_id": "Q-T1-D2",
+      "topic_id": "T1",
+      "text": "Let f(x) = e^(2x) sin x. What is f'(0)?",
+      "difficulty": 3,
+      "purpose": "diagnostic",
+      "source_id": "SRC-BANK",
+      "page": 1,
+      "review_status": "approved",
+      "answer": "1",
+      "choices": {
+        "A": "0",
+        "B": "1",
+        "C": "2",
+        "D": "3"
+      },
+      "correct_choice": "B"
+    },
+    {
+      "question_id": "Q-T1-P1",
+      "topic_id": "T1",
+      "text": "Find the equation of the tangent line to y = x^2 at x = 3.",
+      "difficulty": 1,
+      "purpose": "practice",
+      "source_id": "SRC-BANK",
+      "page": 1,
+      "review_status": "approved",
+      "answer": "y = 6x - 9"
+    },
+    {
+      "question_id": "Q-T1-P2",
+      "topic_id": "T1",
+      "text": "Differentiate g(x) = ln(x^2 + 1).",
+      "difficulty": 2,
+      "purpose": "practice",
+      "source_id": "SRC-BANK",
+      "page": 1,
+      "review_status": "approved",
+      "answer": "g'(x) = 2x / (x^2 + 1)"
+    },
+    {
+      "question_id": "Q-T2-D3",
+      "topic_id": "T2",
+      "text": "Evaluate the definite integral of 3x^2 + 2x from x = 0 to x = 1.",
+      "difficulty": 1,
+      "purpose": "diagnostic",
+      "source_id": "SRC-BANK",
+      "page": 2,
+      "review_status": "approved",
+      "answer": "2",
+      "choices": {
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "4"
+      },
+      "correct_choice": "B"
+    },
+    {
+      "question_id": "Q-T2-D4",
+      "topic_id": "T2",
+      "text": "Which expression is the indefinite integral of x * e^x with respect to x?",
+      "difficulty": 3,
+      "purpose": "diagnostic",
+      "source_id": "SRC-BANK",
+      "page": 2,
+      "review_status": "approved",
+      "answer": "e^x (x - 1) + C",
+      "choices": {
+        "A": "e^x (x - 1) + C",
+        "B": "e^x (x + 1) + C",
+        "C": "x * e^x + C",
+        "D": "e^x + C"
+      },
+      "correct_choice": "A"
+    },
+    {
+      "question_id": "Q-T2-P3",
+      "topic_id": "T2",
+      "text": "Evaluate the definite integral of 1/x from x = 1 to x = e.",
+      "difficulty": 1,
+      "purpose": "practice",
+      "source_id": "SRC-BANK",
+      "page": 2,
+      "review_status": "approved",
+      "answer": "1"
+    },
+    {
+      "question_id": "Q-T2-P4",
+      "topic_id": "T2",
+      "text": "Evaluate the definite integral of sin x from x = 0 to x = pi.",
+      "difficulty": 2,
+      "purpose": "practice",
+      "source_id": "SRC-BANK",
+      "page": 2,
+      "review_status": "approved",
+      "answer": "2"
+    },
+    {
+      "question_id": "Q-T3-D5",
+      "topic_id": "T3",
+      "text": "Which of these series converges?",
+      "difficulty": 1,
+      "purpose": "diagnostic",
+      "source_id": "SRC-BANK",
+      "page": 3,
+      "review_status": "approved",
+      "answer": "sum from n=1 to infinity of 1/n^2",
+      "choices": {
+        "A": "sum from n=1 to infinity of 1/n",
+        "B": "sum from n=1 to infinity of 1/sqrt(n)",
+        "C": "sum from n=1 to infinity of 1/n^2",
+        "D": "sum from n=1 to infinity of 1/(n+1)"
+      },
+      "correct_choice": "C"
+    },
+    {
+      "question_id": "Q-T3-D6",
+      "topic_id": "T3",
+      "text": "What is the radius of convergence of the series sum from n=0 to infinity of x^n / n! ?",
+      "difficulty": 3,
+      "purpose": "diagnostic",
+      "source_id": "SRC-BANK",
+      "page": 3,
+      "review_status": "approved",
+      "answer": "infinite",
+      "choices": {
+        "A": "0",
+        "B": "1",
+        "C": "e",
+        "D": "infinite"
+      },
+      "correct_choice": "D"
+    },
+    {
+      "question_id": "Q-T3-P5",
+      "topic_id": "T3",
+      "text": "Sum the geometric series 1 + 1/2 + 1/4 + 1/8 + ...",
+      "difficulty": 1,
+      "purpose": "practice",
+      "source_id": "SRC-BANK",
+      "page": 3,
+      "review_status": "approved",
+      "answer": "2"
+    },
+    {
+      "question_id": "Q-T3-P6",
+      "topic_id": "T3",
+      "text": "Write the Taylor series of ln(1 + x) about x = 0 through the x^3 term.",
+      "difficulty": 2,
+      "purpose": "practice",
+      "source_id": "SRC-BANK",
+      "page": 3,
+      "review_status": "approved",
+      "answer": "x - x^2/2 + x^3/3"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-BANK",
+      "label": "ExamAce authored question bank (fictional)",
+      "kind": "authored question bank",
+      "provenance": "Written for this hackathon. Every answer key recomputed by hand on 2026-11-03; no third-party problem text."
+    },
+    {
+      "source_id": "SRC-A1",
+      "label": "Authored Assessment 1: Midterm 1 (fictional)",
+      "kind": "authored assessment",
+      "provenance": "Short fictional assessment. Only topic mention counts and short excerpts are used; it is not a real course document."
+    },
+    {
+      "source_id": "SRC-A2",
+      "label": "Authored Assessment 2: Quiz 3 (fictional)",
+      "kind": "authored assessment",
+      "provenance": "Short fictional assessment. Only topic mention counts and short excerpts are used; it is not a real course document."
+    },
+    {
+      "source_id": "SRC-A3",
+      "label": "Authored Assessment 3: Final review sheet (fictional)",
+      "kind": "authored assessment",
+      "provenance": "Short fictional assessment. Only topic mention counts and short excerpts are used; it is not a real course document."
+    }
+  ],
+  "assessment_count": 3,
+  "topic_counts": {
+    "T1": 2,
+    "T2": 1,
+    "T3": 2
+  }
+}

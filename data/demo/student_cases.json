@@ -1,0 +1,77 @@
+{
+  "note": "Two fictional response sets for tests and demos. No real student data. Unit weights are test-only; the live demo uses the topic_counts-derived weights in course.json.",
+  "test_weights": {
+    "topic_weights": {
+      "T1": 1.0,
+      "T2": 1.0,
+      "T3": 1.0
+    },
+    "purpose": "Inject these weights into the model only, so the contrasting plans below are reproducible."
+  },
+  "cases": [
+    {
+      "case_id": "case-A",
+      "label": "Student A (fictional)",
+      "budget_minutes": 90,
+      "submitted_choices": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "B",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "A"
+      },
+      "expected_with_test_weights": {
+        "proficiency": {
+          "T1": 1.0,
+          "T2": 0.0,
+          "T3": 0.5
+        },
+        "exact_allocation": {
+          "T1": 0,
+          "T2": 60,
+          "T3": 30
+        },
+        "used_minutes": 90,
+        "unused_minutes": 0,
+        "utility": 2.0,
+        "practice_topic_ids": [
+          "T2",
+          "T3"
+        ]
+      }
+    },
+    {
+      "case_id": "case-B",
+      "label": "Student B (fictional)",
+      "budget_minutes": 90,
+      "submitted_choices": {
+        "Q-T1-D1": "C",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "B",
+        "Q-T2-D4": "A",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "C"
+      },
+      "expected_with_test_weights": {
+        "proficiency": {
+          "T1": 0.0,
+          "T2": 1.0,
+          "T3": 0.5
+        },
+        "exact_allocation": {
+          "T1": 60,
+          "T2": 0,
+          "T3": 30
+        },
+        "used_minutes": 90,
+        "unused_minutes": 0,
+        "utility": 2.0,
+        "practice_topic_ids": [
+          "T1",
+          "T3"
+        ]
+      }
+    }
+  ]
+}
