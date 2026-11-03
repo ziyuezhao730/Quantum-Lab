@@ -1,4 +1,6 @@
 import streamlit as st
+def clear_previous_plan():
+    st.session_state.pop("plan", None)
 
 
 def render_inputs():
@@ -12,6 +14,7 @@ def render_inputs():
             ["A", "B", "C", "D"],
             index=None,
             key=f"question_{i}",
+            on_change=clear_previous_plan,
         )
 
         answers.append(answer)
@@ -22,6 +25,7 @@ def render_inputs():
         max_value=180,
         value=60,
         step=5,
+        on_change=clear_previous_plan,
     )
 
     return answers, budget
