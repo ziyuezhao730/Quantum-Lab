@@ -14,14 +14,6 @@ class PlanRequest(BaseModel):
             raise ValueError("proficiency must contain exactly T1, T2, and T3")
         return value
 
-    @field_validator("allocations")
-    @classmethod
-    def check_allocation_keys(cls, value):
-        if set(value) != {"T1", "T2", "T3"}:
-            raise ValueError("allocations must contain exactly T1, T2, and T3")
-        return value
-
-
 class QuantumMetrics(BaseModel):
     qubits: int = Field(gt=0, strict=True)
     p: int = Field(gt=0, strict=True)
