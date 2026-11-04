@@ -18,7 +18,6 @@ def validate(val, name, min, max):
     return num
 
 
-
 def topic_priority(weight, proficiency):
     # dummy model
     return weight*(1-proficiency)
