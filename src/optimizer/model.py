@@ -20,6 +20,8 @@ def validate(val, name, min, max):
 
 def topic_priority(weight, proficiency):
     # dummy model
+    weight = validate(weight, "Topic weight", 0.5, 10)
+    proficiency = validate(proficiency, "Proficiency", 0.0, 1.0)
     return weight*(1-proficiency)
 
 def plan_utility(allocations, topic_weights, proficiency):

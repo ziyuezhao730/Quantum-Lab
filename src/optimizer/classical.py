@@ -9,6 +9,17 @@ def solve_exact(weights, proficiency, budget):
     """find, by brute force, the highest utility allocation within budget given"""
     topic_ids = ("T1", "T2", "T3")
 
+    # validation
+    if isinstance(budget, bool) or not isinstance(budget, int):
+        raise ValueError("budget must be an integer number in minutes")
+    if not 0 <= budget <= 180:
+        raise ValueError("budget must be between 0 and 180")
+    if set(weights) != set(topic_ids):
+        raise ValueError("Weights must contain exactly T1, T2, T3")
+    if set(proficiency) != set(topic_ids):
+            raise ValueError("Proficiency must contain exactly T1, T2, T3")
+    
+
     # set up
     best_allocs = None
     best_util = float("-inf")
