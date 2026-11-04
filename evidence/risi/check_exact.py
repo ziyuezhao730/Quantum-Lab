@@ -31,9 +31,10 @@ all_correct = {"T1": 1.0, "T2": 1.0, "T3": 1.0}
 result = solve_exact(weights, all_correct, 180)
 assert result["used_minutes"] == 0
 
-# equal priorities: prefer the earlier topic.
+# equal priorities, prefer the earlier topic.
 all_wrong = {"T1": 0.0, "T2": 0.0, "T3": 0.0}
 result = solve_exact(weights, all_wrong, 30)
+print(result["allocations"])
 assert result["allocations"] == {"T1": 30, "T2": 0, "T3": 0}
 
 # changing the student changes plan

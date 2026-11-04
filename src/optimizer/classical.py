@@ -33,12 +33,12 @@ def solve_exact(weights, proficiency, budget):
 
         allocs = dict(zip(topic_ids, mins))
         util = plan_utility(allocs, weights, proficiency)
-        tie = (used_mins, *mins)
+        tie = (-used_mins, *mins)
         # accounting for floating point issues, values are subject to change
         better_util = util > best_util + 1e-12
         equal_util = abs(util-best_util) <= 1e-12
 
-        if best_allocs is None or better_util or (equal_util and tie < best_tie):
+        if best_allocs is None or better_util or (equal_util and tie > best_tie):
             best_allocs = allocs
             best_util = util
             best_tie = tie
