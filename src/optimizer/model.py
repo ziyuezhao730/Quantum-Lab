@@ -20,7 +20,7 @@ def validate(val, name, min, max):
 
 def topic_priority(weight, proficiency):
     # dummy model
-    weight = validate(weight, "Topic weight", 0.5, 10)
+    weight = validate(weight, "Topic weight", 0.5, 1.0)
     proficiency = validate(proficiency, "Proficiency", 0.0, 1.0)
     return weight*(1-proficiency)
 
@@ -46,3 +46,22 @@ def topic_utility(priority, minutes):
     if minutes == 60:
         # diminishing returns
         return priority+priority*0.5
+    raise ValueError("minutes must be 0, 30, or 60")
+
+
+def is_feasible(allocations, budget):
+    """feasibility change for extra protection/ plan obeys given constraints"""
+    if isinstance(budget, bool) or not isinstance(budget, int):
+        return False
+    if not 0 <= budget <= 180:
+        return False
+    if set(allocations) != set(TOPICS):
+        return False
+
+    for mins in allocations.values():
+        if isinstance(mins, bool) or not isinstance(mins, int):
+                return False
+        if mins not in (0, 30, 60):
+            return False
+
+    return sum(allocations.values()) <= budget

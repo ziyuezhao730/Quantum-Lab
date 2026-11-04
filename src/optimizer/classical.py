@@ -1,13 +1,13 @@
 """generates every possible plan"""
 from itertools import product
+from time import perf_counter
 
-from src.optimizer.model import plan_utility
-
-product((0, 30, 60), repeat=3)
+from src.optimizer.model import plan_utility, is_feasible, TOPICS
 
 def solve_exact(weights, proficiency, budget):
     """find, by brute force, the highest utility allocation within budget given"""
-    topic_ids = ("T1", "T2", "T3")
+    start = perf_counter()
+    topic_ids = TOPICS
 
     # validation
     if isinstance(budget, bool) or not isinstance(budget, int):
@@ -26,12 +26,12 @@ def solve_exact(weights, proficiency, budget):
     best_tie = None
 
     for mins in product((0, 30, 60), repeat=3):
-        used_mins = sum(mins)
-        # skip if overspent
-        if used_mins > budget:
-            continue
-
         allocs = dict(zip(topic_ids, mins))
+        used_mins = sum(mins)
+        # skip plan if not feasible
+        if not is_feasible(allocs, budget):
+             continue
+        
         util = plan_utility(allocs, weights, proficiency)
         tie = (-used_mins, *mins)
         # accounting for floating point issues, values are subject to change
@@ -50,4 +50,10 @@ def solve_exact(weights, proficiency, budget):
         "used_minutes": used_mins,
         "unused_minutes": budget - used_mins,
         "utility": best_util,
+        "feasible": is_feasible(best_allocs, budget),
+        "actual_solver": "exact",
+        "execution_mode": "live",
+        "elapsed_ms": (perf_counter() - start) * 1000,
+        "warnings": [],
+        "quantum_metrics": None,
     }

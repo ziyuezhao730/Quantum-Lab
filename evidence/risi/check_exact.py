@@ -1,5 +1,5 @@
 from math import isclose
-from src.optimizer.classical import solve_exact
+from src.optimizer.classical import solve_exact, is_feasible
 
 weights = {"T1": 1.0, "T2": 1.0, "T3": 1.0}
 scores = {"T1": 0.8, "T2": 0.2, "T3": 0.4}
