@@ -34,7 +34,8 @@ def plan_utility(allocations, topic_weights, proficiency):
         )
 
         total += topic_utility(priority, minutes)
-    
+
+    return total
 
 def topic_utility(priority, minutes):
     if minutes == 0:
