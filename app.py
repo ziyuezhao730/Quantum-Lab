@@ -1,6 +1,12 @@
 import streamlit as st
 from src.ui.inputs import render_inputs
 from src.ui.results import render_results, render_practice_questions
+from src.ui.planner_adapter import (
+    load_course_data,
+    get_topic_weights,
+    get_topic_names,
+)
+from src.optimizer.classical import solve_exact
 
 st.set_page_config(
     page_title="ExamAce",
@@ -37,20 +43,36 @@ if "plan" in st.session_state:
     st.write("Your answers:", plan["answers"])
     st.write("Study budget:", plan["budget"], "minutes")
     st.warning(
-        "DEMO MODE: The results below are sample data, "
-        "not generated from your answers."
+        "TEST MODE: Study time is calculated by the real optimizer, "
+        "but proficiency scores are fixed test values, "
+        "not calculated from your answers."
+    )
+
+    course = load_course_data()
+    weights = get_topic_weights(course)
+    topic_names = get_topic_names(course)
+
+    # Temporary test proficiency — NOT calculated from answers
+    test_proficiency = {
+        "T1": 1.0,
+        "T2": 0.0,
+        "T3": 0.5,
+    }
+
+    result = solve_exact(
+        weights,
+        test_proficiency,
+        plan["budget"],
     )
 
     demo_scores = {
-        "Algebra": 0.6,
-        "Calculus": 0.8,
-        "Probability": 0.4,
+        topic_names[topic_id]: score
+        for topic_id, score in test_proficiency.items()
     }
 
     demo_allocation = {
-        "Algebra": 30,
-        "Calculus": 10,
-        "Probability": 20,
+        topic_names[topic_id]: minutes
+        for topic_id, minutes in result["allocations"].items()
     }
 
     demo_questions = [
@@ -67,5 +89,23 @@ if "plan" in st.session_state:
     ]
 
     render_results(demo_scores, demo_allocation)
+    st.subheader("Optimization Details")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Used Time", f"{result['used_minutes']} min")
+
+    with col2:
+        st.metric("Unused Time", f"{result['unused_minutes']} min")
+
+    with col3:
+        st.metric("Utility", f"{result['utility']:.3f}")
+
+    st.caption(
+        f"Solver: {result['actual_solver']} | "
+        f"Execution: {result['execution_mode']} | "
+        f"Feasible: {result['feasible']}"
+    )
     render_practice_questions(demo_questions)
     
