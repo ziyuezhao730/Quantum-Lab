@@ -5,6 +5,7 @@ from src.ui.planner_adapter import (
     load_course_data,
     get_topic_weights,
     get_topic_names,
+    get_practice_questions,
 )
 from src.optimizer.classical import solve_exact
 
@@ -75,18 +76,7 @@ if "plan" in st.session_state:
         for topic_id, minutes in result["allocations"].items()
     }
 
-    demo_questions = [
-        {
-            "text": "Solve: 2x + 3 = 11",
-            "source": "Demo Question Bank",
-            "answer": "x = 4",
-        },
-        {
-            "text": "What is the derivative of x²?",
-            "source": "Demo Question Bank",
-            "answer": "2x",
-        },
-    ]
+    practice_questions = get_practice_questions(course)
 
     render_results(demo_scores, demo_allocation)
     st.subheader("Optimization Details")
@@ -107,5 +97,5 @@ if "plan" in st.session_state:
         f"Execution: {result['execution_mode']} | "
         f"Feasible: {result['feasible']}"
     )
-    render_practice_questions(demo_questions)
+    render_practice_questions(practice_questions)
     

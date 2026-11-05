@@ -30,3 +30,23 @@ def get_topic_names(course):
         topic["topic_id"]: topic["name"]
         for topic in course["topics"]
     }
+
+def get_practice_questions(course):
+    """Return approved practice questions for the UI."""
+    practice_questions = []
+
+    for question in course["questions"]:
+        if (
+            question["purpose"] == "practice"
+            and question["review_status"] == "approved"
+        ):
+            practice_questions.append({
+                "text": question["text"],
+                "source": (
+                    f"{question['source_id']}, "
+                    f"page {question['page']}"
+                ),
+                "answer": question["answer"],
+            })
+
+    return practice_questions
