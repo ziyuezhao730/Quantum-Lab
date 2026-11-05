@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 from src.ui.inputs import render_inputs
 from src.ui.results import render_results, render_practice_questions
 from src.ui.planner_adapter import (
@@ -18,6 +19,16 @@ st.set_page_config(
 st.title("ExamAce — AI Study Planner")
 
 answers, budget = render_inputs()
+
+# Invalidate the old plan if the inputs change
+if "plan" in st.session_state:
+    old_plan = st.session_state["plan"]
+
+    if (
+        old_plan["answers"] != answers
+        or old_plan["budget"] != budget
+    ):
+        del st.session_state["plan"]
 
 completed = len(answers) == 6 and all(
     answer is not None for answer in answers.values()
@@ -99,3 +110,26 @@ if "plan" in st.session_state:
     )
     render_practice_questions(practice_questions)
     
+        # Create a snapshot of the current study plan
+    snapshot = {
+        "answers": plan["answers"],
+        "budget_minutes": plan["budget"],
+        "proficiency": test_proficiency,
+        "allocations": result["allocations"],
+        "used_minutes": result["used_minutes"],
+        "unused_minutes": result["unused_minutes"],
+        "utility": result["utility"],
+        "actual_solver": result["actual_solver"],
+        "execution_mode": result["execution_mode"],
+        "feasible": result["feasible"],
+        "test_mode": True,
+    }
+
+    st.subheader("Download Study Plan")
+
+    st.download_button(
+        label="Download Snapshot JSON",
+        data=json.dumps(snapshot, indent=2),
+        file_name="examace_snapshot.json",
+        mime="application/json",
+    )
