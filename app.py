@@ -12,7 +12,9 @@ st.title("ExamAce — AI Study Planner")
 
 answers, budget = render_inputs()
 
-completed = all(answer is not None for answer in answers)
+completed = len(answers) == 6 and all(
+    answer is not None for answer in answers.values()
+)
 
 if not completed:
     st.warning("Please answer all 6 questions before continuing.")
