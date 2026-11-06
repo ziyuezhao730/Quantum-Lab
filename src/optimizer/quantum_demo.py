@@ -31,6 +31,9 @@ ROOT = Path(__file__).resolve().parents[2]
 def load_profile(path):
     """load & validate the exported snapshot"""
     candidate=json.loads(Path(path).read_text())
+    if candidate.get("schema_version")==3:
+        from src.optimizer.scheduler import ScheduleSnapshot
+        return ScheduleSnapshot.model_validate(candidate)
     return StudySnapshot.model_validate(candidate) if candidate.get("schema_version")==2 else validate_snapshot(candidate)
 
 
@@ -130,6 +133,9 @@ def run_qaoa(snapshot):
 
 def compare(snapshot):
     """same profile for exact & qaoa, save original inputs"""
+    from src.optimizer.scheduler import ScheduleSnapshot,compare_schedule
+    if isinstance(snapshot,ScheduleSnapshot):
+        return compare_schedule(snapshot)
     if isinstance(snapshot,StudySnapshot):
         from src.optimizer.session_quantum import compare_session
         return compare_session(snapshot)

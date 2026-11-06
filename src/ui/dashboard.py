@@ -89,3 +89,46 @@ def render_practice(course,items,plan):
         count=sum(questions[i.question_id].topic_id==topic for i in items)
         if minutes and count<2:
             st.warning(f"{names[topic]} - only {count} unique practice questions available")
+
+
+
+def render_schedule(plan,names,snapshot):
+    a,b,c=st.columns(3)
+    a.metric("Focused study",duration(plan["used_minutes"]))
+    b.metric("Breaks",duration(plan["break_minutes"]))
+    c.metric("Time left",duration(plan["unused_minutes"]))
+    if not plan["selected_sessions"]:
+        st.info("No sessions fit these settings. Try more availability or a later exam day.")
+        return
+    selected=plan["selected_sessions"]
+    current_day=None
+    for i,s in enumerate(selected):
+        day=s["start"]//1440
+        if day!=current_day:
+            st.markdown(f"### Day {day+1}")
+            current_day=day
+        begin=s["start"]%1440
+        end=begin+s["minutes"]
+        title=f"{names[s['topic_id']]} · {s['kind'].title()}"
+        note="work through the topic's exercises" if s["kind"]=="practice" else "review your notes & key examples"
+        st.markdown(f'<div class="session-card"><div class="session-time">{clock(begin)} — {clock(end)}</div><div class="session-topic">{html.escape(title)}</div><div class="session-note">{note}</div></div>',unsafe_allow_html=True)
+        if i+1<len(selected) and selected[i+1]["start"]//1440==day:
+            st.markdown(f'<div class="session-card pause-card"><div class="session-time">{clock(end)} — {clock(end+15)}</div><div class="session-topic">Take a break</div></div>',unsafe_allow_html=True)
+    with st.expander("Other available sessions"):
+        selected_ids={s["session_id"] for s in selected}
+        rows=[]
+        for s in snapshot.sessions:
+            if s.session_id in selected_ids:
+                continue
+            if s.start+s.minutes>snapshot.deadlines[s.topic_id]:
+                reason="after the exam deadline"
+            elif not any(w.start<=s.start and s.start+s.minutes<=w.end for w in snapshot.windows):
+                reason="outside your availability"
+            elif s.requires and not any(r in selected_ids for r in s.requires):
+                reason="preparation session not selected"
+            elif any(s.start<o["start"]+o["minutes"]+15 and o["start"]<s.start+s.minutes+15 for o in selected):
+                reason="overlaps a selected session or break"
+            else:
+                reason="another combination gives a higher total score"
+            rows.append({"Day":s.start//1440+1,"Time":clock(s.start%1440),"Topic":names[s.topic_id],"Activity":s.kind,"Reason":reason})
+        st.dataframe(rows,hide_index=True,use_container_width=True)
