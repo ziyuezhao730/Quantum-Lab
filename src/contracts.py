@@ -114,3 +114,25 @@ class DiagnosticResult(BaseModel):
             )
 
         return value
+
+class ProfileSnapshot(BaseModel):
+    schema_version: Literal[1]
+    profile_source: Literal["diagnostic"]
+    request: PlanRequest
+    topic_weights: dict[
+        str,
+        Annotated[
+            float,
+            Field(ge=0.5, le=1, allow_inf_nan=False, strict=True),
+        ],
+    ]
+
+    @field_validator("topic_weights")
+    @classmethod
+    def check_topic_weight_keys(cls, value):
+        if set(value) != {"T1", "T2", "T3"}:
+            raise ValueError(
+                "topic_weights must contain exactly T1, T2, and T3"
+            )
+
+        return value
