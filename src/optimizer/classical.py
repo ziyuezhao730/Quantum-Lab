@@ -59,7 +59,7 @@ def solve_exact(weights, proficiency, budget):
         "quantum_metrics": None,
     }
 
-def solve_plan(weights: dict[str, float], request: PlanRequest,) -> PlanResult:
+def solve_plan(weights: dict[str, float], request: PlanRequest) -> PlanResult:
     """completes an exact-planning rq"""
     if request.requested_solver != "exact":
           raise ValueError("planner supports only the exact solver")

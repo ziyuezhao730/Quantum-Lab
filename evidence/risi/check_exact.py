@@ -1,6 +1,6 @@
 from math import isclose
 from src.optimizer.classical import solve_exact, is_feasible
-# from src.contracts import PlanRequest, PlanResult # uncomment after A1 merged
+from src.contracts import PlanRequest, PlanResult
 from src.optimizer.classical import solve_plan
 
 weights = {"T1": 1.0, "T2": 1.0, "T3": 1.0}
@@ -98,27 +98,27 @@ for test_weights, test_scores, test_budget in bad_inputs:
 
 print("additional checks passed")
 
-# rq = PlanRequest(90, scores, "exact")
+rq = PlanRequest(budget_minutes=90, proficiency=scores, requested_solver="exact")
 
-# plan = solve_plan(weights, rq)
+plan = solve_plan(weights, rq)
 
-# assert isinstance(plan, PlanResult)
-# assert plan.allocations == {"T1": 0, "T2": 60, "T3": 30}
-# assert isclose(plan.utility, 1.8, abs_tol=1e-8)
-# assert plan.feasible
-# assert plan.used_minutes == 90
-# assert plan.unused_minutes == 0
-# assert plan.actual_solver == "exact"
-# assert plan.execution_mode == "live"
+assert isinstance(plan, PlanResult)
+assert plan.allocations == {"T1": 0, "T2": 60, "T3": 30}
+assert isclose(plan.utility, 1.8, abs_tol=1e-8)
+assert plan.feasible
+assert plan.used_minutes == 90
+assert plan.unused_minutes == 0
+assert plan.actual_solver == "exact"
+assert plan.execution_mode == "live"
 
-# print(plan.model_dump())
+print(plan.model_dump())
 
-# rq = PlanRequest(90, scores, "qaoa")
-# try:
-#     solve_plan(weights, rq)
-# except ValueError:
-#     pass
-# else:
-#     raise AssertionError("exact planner solve quantum")
+rq = PlanRequest(budget_minutes=90, proficiency=scores, requested_solver="qaoa")
+try:
+    solve_plan(weights, rq)
+except ValueError:
+    pass
+else:
+    raise AssertionError("exact planner solve quantum")
 
-# print("planner interface checks passed")
+print("planner interface checks passed")
