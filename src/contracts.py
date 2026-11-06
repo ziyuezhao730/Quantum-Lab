@@ -44,6 +44,13 @@ class PlanResult(BaseModel):
 
 
 
+    @field_validator("allocations")
+    @classmethod
+    def check_allocation_keys(cls, value):
+        if set(value) != {"T1", "T2", "T3"}:
+            raise ValueError("allocations must contain exactly T1, T2, and T3")
+        return value
+
 class Evidence(BaseModel):
     source_id: str = Field(min_length=1)
     page: int = Field(ge=1, strict=True)
