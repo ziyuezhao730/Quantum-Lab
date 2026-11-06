@@ -46,3 +46,25 @@ covers 0, 3, 6 blocks; empty, optimal and invalid plans
 checks offset, bit order, partial budget and nonunit weights
 invalid-order example: -1.5+3.4 = 1.9
 ai-assisted self-checks, no independent review or qiskit run yet
+
+
+r3 run:
+reference - https://quantum.cloud.ibm.com/docs/en/tutorials/quantum-approximate-optimization-algorithm
+adapted cost operator to study allocation, p=1, local statevector instead of hardware
+library initial state & mixer, no custom gates
+seed 7, one start, 30 evals max, 1024 final samples
+profile from fictional case-a through production scoring & snapshot export
+this was a file export, not a download from the streamlit ui
+
+run - python3 -m src.optimizer.quantum_demo --profile runtime/student_profile.json --output evidence/risi/qaoa_run.json
+exact util - 1.4166666666666665
+sample util - 0.6666666666666666
+gap - 0.75
+feasible shots - 86/1024
+optimizer hit the 30-eval cap, did not converge
+found a feasible sample, not the exact optimum
+report includes snapshot, params, counts, trace, timings & versions
+code was uncommitted during this run, report records that
+commit source first, rerun later for evidence tied to a source commit
+saved json is live-run evidence, viewing it later is replay of that saved profile
+r3 self-checks are ai-assisted, not independent review
