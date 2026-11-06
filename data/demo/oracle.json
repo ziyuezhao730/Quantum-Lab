@@ -1,0 +1,141 @@
+{
+  "note": "Model oracle for tests only. Unit weights are injected into the model so the expected plans are reproducible by hand; the live demo uses the topic_counts-derived weights in course.json. Nothing here is produced by running the implementation - every number below was hand-calculated from docs/01_requirements.md section 6.",
+  "test_weights": {
+    "T1": 1.0,
+    "T2": 1.0,
+    "T3": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "AT01-model-oracle",
+      "source": "docs/01_requirements.md AT01",
+      "proficiency": {
+        "T1": 0.8,
+        "T2": 0.2,
+        "T3": 0.4
+      },
+      "budget_minutes": 90,
+      "expected_allocation": {
+        "T1": 0,
+        "T2": 60,
+        "T3": 30
+      },
+      "expected_utility": 1.8,
+      "utility_tolerance": 1e-8
+    },
+    {
+      "case_id": "AT03-student-A",
+      "source": "student_cases.json case-A with unit weights",
+      "proficiency": {
+        "T1": 1.0,
+        "T2": 0.0,
+        "T3": 0.5
+      },
+      "budget_minutes": 90,
+      "expected_allocation": {
+        "T1": 0,
+        "T2": 60,
+        "T3": 30
+      },
+      "expected_utility": 2.0,
+      "utility_tolerance": 1e-8
+    },
+    {
+      "case_id": "AT03-student-B",
+      "source": "student_cases.json case-B with unit weights",
+      "proficiency": {
+        "T1": 0.0,
+        "T2": 1.0,
+        "T3": 0.5
+      },
+      "budget_minutes": 90,
+      "expected_allocation": {
+        "T1": 60,
+        "T2": 0,
+        "T3": 30
+      },
+      "expected_utility": 2.0,
+      "utility_tolerance": 1e-8
+    },
+    {
+      "case_id": "all-topics-unprepared",
+      "source": "hand calculation: a_i = 1.0 for every topic, budget 90 buys three blocks",
+      "proficiency": {
+        "T1": 0.0,
+        "T2": 0.0,
+        "T3": 0.0
+      },
+      "budget_minutes": 90,
+      "expected_allocation": {
+        "T1": 30,
+        "T2": 30,
+        "T3": 30
+      },
+      "expected_utility": 3.0,
+      "utility_tolerance": 1e-8
+    },
+    {
+      "case_id": "nothing-left-to-study",
+      "source": "hand calculation: p_i = 1 gives a_i = 0, so the fewer-blocks tie rule allocates nothing",
+      "proficiency": {
+        "T1": 1.0,
+        "T2": 1.0,
+        "T3": 1.0
+      },
+      "budget_minutes": 90,
+      "expected_allocation": {
+        "T1": 0,
+        "T2": 0,
+        "T3": 0
+      },
+      "expected_utility": 0.0,
+      "utility_tolerance": 1e-8
+    }
+  ],
+  "budget_cases": [
+    {
+      "budget_minutes": 0,
+      "proficiency": {
+        "T1": 0.5,
+        "T2": 0.5,
+        "T3": 0.5
+      },
+      "expected_allocation": {
+        "T1": 0,
+        "T2": 0,
+        "T3": 0
+      }
+    },
+    {
+      "budget_minutes": 15,
+      "proficiency": {
+        "T1": 0.5,
+        "T2": 0.5,
+        "T3": 0.5
+      },
+      "expected_allocation": {
+        "T1": 0,
+        "T2": 0,
+        "T3": 0
+      }
+    },
+    {
+      "budget_minutes": 45,
+      "proficiency": {
+        "T1": 0.5,
+        "T2": 0.5,
+        "T3": 0.5
+      },
+      "max_used_minutes": 30
+    },
+    {
+      "budget_minutes": 180,
+      "proficiency": {
+        "T1": 0.5,
+        "T2": 0.5,
+        "T3": 0.5
+      },
+      "max_used_minutes": 180
+    }
+  ]
+}
