@@ -1,0 +1,2258 @@
+{
+  "model_version": 3,
+  "cases": [
+    {
+      "case": "weak_integrals_12",
+      "answers": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "B",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "A"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 240,
+            "proficiency": {
+              "T1": 1.0,
+              "T2": 0.0,
+              "T3": 0.5
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "weak_integrals_15",
+      "answers": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "B",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "A"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 360,
+            "proficiency": {
+              "T1": 1.0,
+              "T2": 0.0,
+              "T3": 0.5
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 3420,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 3450,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 3480,
+            "minutes": 45,
+            "requires": []
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "weak_integrals_18",
+      "answers": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "B",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "A"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 600,
+            "proficiency": {
+              "T1": 1.0,
+              "T2": 0.0,
+              "T3": 0.5
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 3420,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 3450,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 3480,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 3540,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review",
+              "d3-T3-review"
+            ]
+          },
+          {
+            "session_id": "d3-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 3570,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review",
+              "d3-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 3600,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review",
+              "d3-T2-review"
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "mixed_gaps_12",
+      "answers": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "A",
+        "Q-T3-D6": "A"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 240,
+            "proficiency": {
+              "T1": 0.5,
+              "T2": 0.0,
+              "T3": 0.0
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "mixed_gaps_15",
+      "answers": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "A",
+        "Q-T3-D6": "A"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 360,
+            "proficiency": {
+              "T1": 0.5,
+              "T2": 0.0,
+              "T3": 0.0
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 3420,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 3450,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 3480,
+            "minutes": 45,
+            "requires": []
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "mixed_gaps_18",
+      "answers": {
+        "Q-T1-D1": "A",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "A",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "A",
+        "Q-T3-D6": "A"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 600,
+            "proficiency": {
+              "T1": 0.5,
+              "T2": 0.0,
+              "T3": 0.0
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 3420,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 3450,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 3480,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 3540,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review",
+              "d3-T3-review"
+            ]
+          },
+          {
+            "session_id": "d3-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 3570,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review",
+              "d3-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 3600,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review",
+              "d3-T2-review"
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "weak_derivatives_12",
+      "answers": {
+        "Q-T1-D1": "B",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "B",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "D"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 240,
+            "proficiency": {
+              "T1": 0.0,
+              "T2": 0.5,
+              "T3": 1.0
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "weak_derivatives_15",
+      "answers": {
+        "Q-T1-D1": "B",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "B",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "D"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 360,
+            "proficiency": {
+              "T1": 0.0,
+              "T2": 0.5,
+              "T3": 1.0
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 3420,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 3450,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 3480,
+            "minutes": 45,
+            "requires": []
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    },
+    {
+      "case": "weak_derivatives_18",
+      "answers": {
+        "Q-T1-D1": "B",
+        "Q-T1-D2": "A",
+        "Q-T2-D3": "B",
+        "Q-T2-D4": "B",
+        "Q-T3-D5": "C",
+        "Q-T3-D6": "D"
+      },
+      "profile": {
+        "schema_version": 3,
+        "profile": {
+          "schema_version": 2,
+          "profile_source": "diagnostic",
+          "request": {
+            "budget_minutes": 600,
+            "proficiency": {
+              "T1": 0.0,
+              "T2": 0.5,
+              "T3": 1.0
+            },
+            "requested_solver": "exact",
+            "block_minutes": 15,
+            "focus_minutes": 45,
+            "break_minutes": 15
+          },
+          "topic_weights": {
+            "T1": 0.8333333333333333,
+            "T2": 0.6666666666666666,
+            "T3": 0.8333333333333333
+          }
+        },
+        "sessions": [
+          {
+            "session_id": "d1-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 540,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 570,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 600,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d1-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 660,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review"
+            ]
+          },
+          {
+            "session_id": "d1-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 690,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review"
+            ]
+          },
+          {
+            "session_id": "d1-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 720,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 1980,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 2010,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 2040,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d2-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 2100,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review"
+            ]
+          },
+          {
+            "session_id": "d2-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 2130,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review"
+            ]
+          },
+          {
+            "session_id": "d2-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 2160,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T3-review",
+            "topic_id": "T3",
+            "kind": "review",
+            "start": 3420,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T1-review",
+            "topic_id": "T1",
+            "kind": "review",
+            "start": 3450,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T2-review",
+            "topic_id": "T2",
+            "kind": "review",
+            "start": 3480,
+            "minutes": 45,
+            "requires": []
+          },
+          {
+            "session_id": "d3-T3-practice",
+            "topic_id": "T3",
+            "kind": "practice",
+            "start": 3540,
+            "minutes": 45,
+            "requires": [
+              "d1-T3-review",
+              "d2-T3-review",
+              "d3-T3-review"
+            ]
+          },
+          {
+            "session_id": "d3-T1-practice",
+            "topic_id": "T1",
+            "kind": "practice",
+            "start": 3570,
+            "minutes": 45,
+            "requires": [
+              "d1-T1-review",
+              "d2-T1-review",
+              "d3-T1-review"
+            ]
+          },
+          {
+            "session_id": "d3-T2-practice",
+            "topic_id": "T2",
+            "kind": "practice",
+            "start": 3600,
+            "minutes": 45,
+            "requires": [
+              "d1-T2-review",
+              "d2-T2-review",
+              "d3-T2-review"
+            ]
+          }
+        ],
+        "windows": [
+          {
+            "start": 540,
+            "end": 780
+          },
+          {
+            "start": 1980,
+            "end": 2220
+          },
+          {
+            "start": 3420,
+            "end": 3660
+          }
+        ],
+        "deadlines": {
+          "T1": 2220,
+          "T2": 3660,
+          "T3": 3660
+        }
+      }
+    }
+  ],
+  "settings": {
+    "seeds": [
+      7,
+      11,
+      23
+    ],
+    "p": 1,
+    "max_evaluations": 30,
+    "shots": 1024
+  },
+  "results": [
+    {
+      "case": "weak_integrals_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 7,
+      "exact": 4.04903825534289,
+      "greedy": 4.04903825534289,
+      "qaoa": 4.04903825534289,
+      "uniform": 3.2503967202775144,
+      "feasible_rate": 0.0302734375,
+      "uniform_feasible_rate": 0.0234375,
+      "gap": 0.0,
+      "exact_ms": 0.7096249610185623,
+      "qaoa_ms": 38.373625138774514,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 11,
+      "exact": 4.04903825534289,
+      "greedy": 4.04903825534289,
+      "qaoa": 3.2503967202775144,
+      "uniform": 3.593685474673065,
+      "feasible_rate": 0.04296875,
+      "uniform_feasible_rate": 0.0244140625,
+      "gap": 0.7986415350653759,
+      "exact_ms": 0.34162518568336964,
+      "qaoa_ms": 36.93204186856747,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 23,
+      "exact": 4.04903825534289,
+      "greedy": 4.04903825534289,
+      "qaoa": 3.593685474673065,
+      "uniform": 3.680806462943449,
+      "feasible_rate": 0.0751953125,
+      "uniform_feasible_rate": 0.03125,
+      "gap": 0.4553527806698252,
+      "exact_ms": 0.3364169970154762,
+      "qaoa_ms": 38.046207977458835,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 7,
+      "exact": 5.711517804246279,
+      "greedy": 5.711517804246279,
+      "qaoa": 5.4090034511404355,
+      "uniform": 5.4090034511404355,
+      "feasible_rate": 0.0244140625,
+      "uniform_feasible_rate": 0.025390625,
+      "gap": 0.3025143531058436,
+      "exact_ms": 3.5620410926640034,
+      "qaoa_ms": 202.3362920153886,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 11,
+      "exact": 5.711517804246279,
+      "greedy": 5.711517804246279,
+      "qaoa": 4.027670117807103,
+      "uniform": 4.0749993791089665,
+      "feasible_rate": 0.0107421875,
+      "uniform_feasible_rate": 0.0205078125,
+      "gap": 1.6838476864391758,
+      "exact_ms": 2.623375039547682,
+      "qaoa_ms": 192.87629215978086,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 23,
+      "exact": 5.711517804246279,
+      "greedy": 5.711517804246279,
+      "qaoa": 5.328868533658606,
+      "uniform": 4.193889295889295,
+      "feasible_rate": 0.021484375,
+      "uniform_feasible_rate": 0.013671875,
+      "gap": 0.38264927058767295,
+      "exact_ms": 2.964666113257408,
+      "qaoa_ms": 199.0634580142796,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 7,
+      "exact": 8.138760295088774,
+      "greedy": 8.138760295088774,
+      "qaoa": 7.308750834350833,
+      "uniform": 6.864454694164283,
+      "feasible_rate": 0.0068359375,
+      "uniform_feasible_rate": 0.0107421875,
+      "gap": 0.8300094607379416,
+      "exact_ms": 29.410041868686676,
+      "qaoa_ms": 2188.760499935597,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 11,
+      "exact": 8.138760295088774,
+      "greedy": 8.138760295088774,
+      "qaoa": 6.2006451703547585,
+      "uniform": 6.896613460613459,
+      "feasible_rate": 0.0087890625,
+      "uniform_feasible_rate": 0.0078125,
+      "gap": 1.9381151247340158,
+      "exact_ms": 28.53775001130998,
+      "qaoa_ms": 2338.733916869387,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_integrals_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 23,
+      "exact": 8.138760295088774,
+      "greedy": 8.138760295088774,
+      "qaoa": 6.29826059399758,
+      "uniform": 5.633484965567156,
+      "feasible_rate": 0.0087890625,
+      "uniform_feasible_rate": 0.0126953125,
+      "gap": 1.8404997010911943,
+      "exact_ms": 34.9780002143234,
+      "qaoa_ms": 2243.5396248474717,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 7,
+      "exact": 5.074188728621498,
+      "greedy": 5.074188728621498,
+      "qaoa": 5.046864855084032,
+      "uniform": 4.859542917762095,
+      "feasible_rate": 0.0439453125,
+      "uniform_feasible_rate": 0.0234375,
+      "gap": 0.02732387353746546,
+      "exact_ms": 0.8459158707410097,
+      "qaoa_ms": 38.754125125706196,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 11,
+      "exact": 5.074188728621498,
+      "greedy": 5.074188728621498,
+      "qaoa": 5.046864855084032,
+      "uniform": 5.070688514782901,
+      "feasible_rate": 0.03515625,
+      "uniform_feasible_rate": 0.0244140625,
+      "gap": 0.02732387353746546,
+      "exact_ms": 0.3459160216152668,
+      "qaoa_ms": 36.741500021889806,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 23,
+      "exact": 5.074188728621498,
+      "greedy": 5.074188728621498,
+      "qaoa": 4.286062678062677,
+      "uniform": 5.00592061819459,
+      "feasible_rate": 0.08203125,
+      "uniform_feasible_rate": 0.03125,
+      "gap": 0.7881260505588203,
+      "exact_ms": 0.3245000261813402,
+      "qaoa_ms": 36.503749899566174,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 7,
+      "exact": 7.4575128127883215,
+      "greedy": 7.4575128127883215,
+      "qaoa": 5.724745317473793,
+      "uniform": 7.397927130201102,
+      "feasible_rate": 0.0556640625,
+      "uniform_feasible_rate": 0.025390625,
+      "gap": 1.732767495314529,
+      "exact_ms": 3.746833186596632,
+      "qaoa_ms": 218.91525015234947,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 11,
+      "exact": 7.4575128127883215,
+      "greedy": 7.4575128127883215,
+      "qaoa": 6.5464964209291905,
+      "uniform": 6.942422346855117,
+      "feasible_rate": 0.01953125,
+      "uniform_feasible_rate": 0.0205078125,
+      "gap": 0.911016391859131,
+      "exact_ms": 3.8906249683350325,
+      "qaoa_ms": 199.8574580065906,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 23,
+      "exact": 7.4575128127883215,
+      "greedy": 7.4575128127883215,
+      "qaoa": 5.400124928344106,
+      "uniform": 6.720006512006511,
+      "feasible_rate": 0.0400390625,
+      "uniform_feasible_rate": 0.013671875,
+      "gap": 2.057387884444215,
+      "exact_ms": 3.4437079448252916,
+      "qaoa_ms": 210.12112498283386,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 7,
+      "exact": 12.814908248727424,
+      "greedy": 10.936352195627705,
+      "qaoa": 9.739391439610616,
+      "uniform": 12.263124772943948,
+      "feasible_rate": 0.0087890625,
+      "uniform_feasible_rate": 0.0107421875,
+      "gap": 3.0755168091168077,
+      "exact_ms": 29.978665988892317,
+      "qaoa_ms": 2166.687416145578,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 11,
+      "exact": 12.814908248727424,
+      "greedy": 10.936352195627705,
+      "qaoa": 8.361801607919835,
+      "uniform": 12.222445570664746,
+      "feasible_rate": 0.0029296875,
+      "uniform_feasible_rate": 0.0078125,
+      "gap": 4.453106640807588,
+      "exact_ms": 28.78170902840793,
+      "qaoa_ms": 2101.9306250382215,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "mixed_gaps_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 23,
+      "exact": 12.814908248727424,
+      "greedy": 10.936352195627705,
+      "qaoa": 10.918571754171753,
+      "uniform": 10.506143654417626,
+      "feasible_rate": 0.009765625,
+      "uniform_feasible_rate": 0.0126953125,
+      "gap": 1.8963364945556709,
+      "exact_ms": 27.77029201388359,
+      "qaoa_ms": 2133.5973341483623,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 7,
+      "exact": 6.216433048433047,
+      "greedy": 6.216433048433047,
+      "qaoa": 4.885948717948717,
+      "uniform": 4.919081958022355,
+      "feasible_rate": 0.041015625,
+      "uniform_feasible_rate": 0.0234375,
+      "gap": 1.33048433048433,
+      "exact_ms": 0.803499948233366,
+      "qaoa_ms": 38.1330840755254,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 11,
+      "exact": 6.216433048433047,
+      "greedy": 6.216433048433047,
+      "qaoa": 6.216433048433047,
+      "uniform": 6.216433048433047,
+      "feasible_rate": 0.033203125,
+      "uniform_feasible_rate": 0.0244140625,
+      "gap": 0.0,
+      "exact_ms": 0.34825014881789684,
+      "qaoa_ms": 39.76358310319483,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_12",
+      "choices": 12,
+      "budget_minutes": 240,
+      "seed": 23,
+      "exact": 6.216433048433047,
+      "greedy": 6.216433048433047,
+      "qaoa": 5.3731282051282045,
+      "uniform": 4.885948717948717,
+      "feasible_rate": 0.0419921875,
+      "uniform_feasible_rate": 0.03125,
+      "gap": 0.8433048433048427,
+      "exact_ms": 0.5900000687688589,
+      "qaoa_ms": 39.06679106876254,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 7,
+      "exact": 7.3942792022792005,
+      "greedy": 7.235806267806266,
+      "qaoa": 5.485939100879498,
+      "uniform": 5.570780626780627,
+      "feasible_rate": 0.015625,
+      "uniform_feasible_rate": 0.025390625,
+      "gap": 1.9083401013997028,
+      "exact_ms": 3.326250007376075,
+      "qaoa_ms": 205.34425019286573,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 11,
+      "exact": 7.3942792022792005,
+      "greedy": 7.235806267806266,
+      "qaoa": 5.3731282051282045,
+      "uniform": 6.216433048433047,
+      "feasible_rate": 0.029296875,
+      "uniform_feasible_rate": 0.0205078125,
+      "gap": 2.021150997150996,
+      "exact_ms": 3.1799999997019768,
+      "qaoa_ms": 203.53570906445384,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_15",
+      "choices": 15,
+      "budget_minutes": 360,
+      "seed": 23,
+      "exact": 7.3942792022792005,
+      "greedy": 7.235806267806266,
+      "qaoa": 6.7036125356125345,
+      "uniform": 6.7036125356125345,
+      "feasible_rate": 0.0302734375,
+      "uniform_feasible_rate": 0.013671875,
+      "gap": 0.6906666666666661,
+      "exact_ms": 3.8030000869184732,
+      "qaoa_ms": 208.2504581194371,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 7,
+      "exact": 8.703006267806266,
+      "greedy": 8.703006267806266,
+      "qaoa": 4.904729344729344,
+      "uniform": 6.840328205128205,
+      "feasible_rate": 0.0107421875,
+      "uniform_feasible_rate": 0.0107421875,
+      "gap": 3.798276923076922,
+      "exact_ms": 32.20049990341067,
+      "qaoa_ms": 2143.3318748604506,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 11,
+      "exact": 8.703006267806266,
+      "greedy": 8.703006267806266,
+      "qaoa": 6.3090052489575665,
+      "uniform": 6.819988603988603,
+      "feasible_rate": 0.0087890625,
+      "uniform_feasible_rate": 0.0078125,
+      "gap": 2.3940010188486998,
+      "exact_ms": 27.9897921718657,
+      "qaoa_ms": 2189.1555418260396,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    },
+    {
+      "case": "weak_derivatives_18",
+      "choices": 18,
+      "budget_minutes": 600,
+      "seed": 23,
+      "exact": 8.703006267806266,
+      "greedy": 8.703006267806266,
+      "qaoa": 5.515578347578347,
+      "uniform": 7.926472934472935,
+      "feasible_rate": 0.013671875,
+      "uniform_feasible_rate": 0.0126953125,
+      "gap": 3.187427920227919,
+      "exact_ms": 30.48820816911757,
+      "qaoa_ms": 2430.2996250335127,
+      "evaluations": 30,
+      "code_commit": "598bfa309cc373325276c9e3e5b749b7c5eed0e6",
+      "working_tree_dirty": false
+    }
+  ]
+}

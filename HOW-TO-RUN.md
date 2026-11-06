@@ -1,0 +1,63 @@
+examace - local setup
+
+python 3.11 was verified on macos. other platforms must install compatible wheels.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+python3 -m streamlit run app.py --server.address 127.0.0.1
+```
+
+open http://127.0.0.1:8501 in your browser.
+windows activation - .venv\Scripts\Activate.ps1
+
+checks
+```bash
+python3 -m pytest tests/ evidence/risi/check_quantum_model.py evidence/risi/check_qaoa.py evidence/risi/check_r4.py -q
+python3 scripts/smoke.py
+```
+
+dashboard workflow
+1. complete the diagnostic dialog.
+2. set total hours & extra minutes, including breaks.
+3. open Availability & exams. choose planning days, focus length, daily time window & exam days.
+4. build the schedule, then open Practice or Quantum lab.
+5. changing the budget, availability, exam days or diagnostic clears old output.
+
+candidate focus sessions use 15/30/45 minutes. a break separates selected sessions.
+up to 18 candidate sessions keep the local simulator bounded.
+fictional case-a answers - A, B, A, B, C, A.
+
+
+quantum handoff
+1. use the app with fictional demo answers, generate a plan & download profile json.
+2. save it as runtime/student_profile.json. keep real student exports out of git.
+3. in an activated terminal, run
+```bash
+python3 -m src.optimizer.quantum_demo --profile runtime/student_profile.json
+```
+
+saved comparison replay - no new quantum run
+```bash
+python3 -m evidence.risi.replay_comparison
+```
+
+a pipeline-only fictional export is also available
+```bash
+python3 -m evidence.risi.export_fictional_profile
+```
+
+all computations run offline after dependencies are installed.
+the app uses exact planning & offers a bounded local comparison in Quantum lab.
+schema-3 interacting schedules work with the same quantum command.
+schema-1 & schema-2 exports remain supported.
+the original schema-1 experiment remains supported independently.
+no api keys, accounts, network services or quantum hardware are required.
+source & dependency changes require rerunning these checks before release.
+
+fixed solver comparison
+```bash
+python3 scripts/benchmark_scheduler.py
+```
+outputs go to ignored runtime/. recorded fictional examples are in evidence/risi/.

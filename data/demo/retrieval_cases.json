@@ -1,0 +1,47 @@
+{
+  "note": "frozen before first retrieval check, expected top ids based on authored topic & target difficulty; ai-authored oracle, human review pending",
+  "cases": [
+    {
+      "topic_id": "T1",
+      "proficiency": 0.0,
+      "acceptable_top_ids": [
+        "Q-T1-P1"
+      ]
+    },
+    {
+      "topic_id": "T1",
+      "proficiency": 0.5,
+      "acceptable_top_ids": [
+        "Q-T1-P2"
+      ]
+    },
+    {
+      "topic_id": "T2",
+      "proficiency": 0.0,
+      "acceptable_top_ids": [
+        "Q-T2-P3"
+      ]
+    },
+    {
+      "topic_id": "T2",
+      "proficiency": 0.5,
+      "acceptable_top_ids": [
+        "Q-T2-P4"
+      ]
+    },
+    {
+      "topic_id": "T3",
+      "proficiency": 0.0,
+      "acceptable_top_ids": [
+        "Q-T3-P5"
+      ]
+    },
+    {
+      "topic_id": "T3",
+      "proficiency": 0.5,
+      "acceptable_top_ids": [
+        "Q-T3-P6"
+      ]
+    }
+  ]
+}

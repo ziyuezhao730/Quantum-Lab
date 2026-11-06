@@ -1,0 +1,21 @@
+{
+  "purpose": "clean clone & separate environment verification, same machine",
+  "code_commit": "545b1484eaed5c2ad171a854e03f88e4829f820f",
+  "working_tree_dirty": false,
+  "versions": {
+    "qiskit": "2.6.2",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "pydantic": "2.14.3"
+  },
+  "test_results": {
+    "passed": 127,
+    "skipped": 6,
+    "skip_reason": "production ranking & reviewed retrieval oracle missing"
+  },
+  "exact_utility": 1.4166666666666665,
+  "sampled_utility": 0.6666666666666666,
+  "feasible_shot_rate": 0.083984375,
+  "gap": 0.7499999999999999,
+  "ui_verified": false
+}

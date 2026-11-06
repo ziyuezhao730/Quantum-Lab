@@ -1,0 +1,7 @@
+streamlit
+pydantic
+numpy
+scipy
+scikit-learn
+qiskit
+pytest

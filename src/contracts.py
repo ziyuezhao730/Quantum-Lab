@@ -35,12 +35,7 @@ class PlanResult(BaseModel):
     warnings: list[str] = Field(default_factory=list)
     quantum_metrics: QuantumMetrics | None = None
     
-    @field_validator("allocations")
-    @classmethod
-    def check_allocation_keys(cls, value):
-        if set(value) != {"T1", "T2", "T3"}:
-            raise ValueError("allocations must contain exactly T1, T2, and T3")
-        return value
+
 
 
 
@@ -143,3 +138,26 @@ class ProfileSnapshot(BaseModel):
             )
 
         return value
+
+
+class PracticeItem(BaseModel):
+    question_id: str = Field(min_length=1)
+    score: float = Field(
+        ge=0,
+        le=1,
+        allow_inf_nan=False,
+        strict=True,
+    )
+    reason: str = Field(min_length=1)
+
+
+class StudyRequest(PlanRequest):
+    budget_minutes: int = Field(ge=0, le=1440, strict=True)
+    block_minutes: Literal[15] = 15
+    focus_minutes: Literal[45] = 45
+    break_minutes: Literal[15] = 15
+
+
+class StudySnapshot(ProfileSnapshot):
+    schema_version: Literal[2] = 2
+    request: StudyRequest
