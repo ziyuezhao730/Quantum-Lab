@@ -3,6 +3,7 @@ from itertools import product
 from time import perf_counter
 
 from src.optimizer.model import plan_utility, is_feasible, TOPICS
+from src.contracts import PlanRequest, PlanResult
 
 def solve_exact(weights, proficiency, budget):
     """find, by brute force, the highest utility allocation within budget given"""
@@ -57,3 +58,10 @@ def solve_exact(weights, proficiency, budget):
         "warnings": [],
         "quantum_metrics": None,
     }
+
+def solve_plan(weights: dict[str, float], request: PlanRequest,) -> PlanResult:
+    """completes an exact-planning rq"""
+    if request.requested_solver != "exact":
+          raise ValueError("planner supports only the exact solver")
+    result = solve_exact(weights, request.proficiency, request.budget_minutes)
+    return PlanResult(**result)
