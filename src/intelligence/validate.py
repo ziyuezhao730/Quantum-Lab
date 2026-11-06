@@ -1,4 +1,4 @@
-from src.contracts import CourseData
+from src.contracts import CourseData, ProfileSnapshot
 
 
 def validate_course(candidate: dict | CourseData) -> CourseData:
@@ -120,3 +120,11 @@ def validate_course(candidate: dict | CourseData) -> CourseData:
             )
 
     return course
+
+def validate_snapshot(
+    candidate: dict | ProfileSnapshot,
+) -> ProfileSnapshot:
+    if isinstance(candidate, ProfileSnapshot):
+        candidate = candidate.model_dump()
+
+    return ProfileSnapshot.model_validate(candidate)
