@@ -55,7 +55,7 @@ else:
     if st.button("Build my plan",key="build_plan",type="primary"):
         snapshot=make_study_snapshot(course,st.session_state["proficiency"],budget)
         result=solve_session(snapshot)
-        items=select_questions(course,SimpleNamespace(allocations=result["allocations"]),snapshot.request.proficiency)
+        items=select_questions(course,SimpleNamespace(allocations=result["allocations"],feasible=result["feasible"]),snapshot.request.proficiency)
         st.session_state["study_plan"]={"snapshot":snapshot,"result":result,"items":items}
         st.session_state.pop("experiment",None)
 
