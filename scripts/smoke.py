@@ -1,15 +1,12 @@
-"""End-to-end smoke check for the ExamAce core (FR01 + FR05 + FR06).
-
-Runs one fictional student through the whole chain without Streamlit:
-
-    reviewed course data -> diagnostic scoring -> profile snapshot
-    -> exact plan -> practice questions for the allocated topics
-
-Exit code 0 means every check passed. Any failure prints FAIL lines and
-exits non-zero.
+"""Check the production classical pipeline using a fictional student.
 
 Run from the repository root:
-    python scripts/smoke.py
+    python3 scripts/smoke.py
+
+Exit codes:
+    0: Complete classical pipeline passed, including practice retrieval.
+    1: A check failed.
+    2: Scoring, snapshot, and planning passed; retrieval is unfinished.
 """
 
 import json
@@ -21,147 +18,201 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.optimizer.classical import solve_exact  # noqa: E402
+from src.contracts import PlanRequest
+from src.intelligence.assess import score_diagnostic
+from src.intelligence.pipeline import load_course, make_snapshot
+from src.intelligence.validate import validate_snapshot
+from src.optimizer.classical import solve_plan
+
 
 DATA = ROOT / "data" / "demo"
-TOPICS = ("T1", "T2", "T3")
-failures = []
+TOPICS = {"T1", "T2", "T3"}
 
 
 def check(condition, message):
     if not condition:
-        failures.append(message)
-
-
-def load(name):
-    with (DATA / name).open(encoding="utf-8") as handle:
-        return json.load(handle)
-
-
-def topic_weights(course):
-    count = course["assessment_count"]
-    weights = {}
-    for topic in course["topics"]:
-        mentions = course["topic_counts"][topic["topic_id"]]
-        weights[topic["topic_id"]] = 0.5 + 0.5 * (mentions / count)
-    return weights
-
-
-def score(answers, diagnostics):
-    correct = {topic: 0 for topic in TOPICS}
-    total = {topic: 0 for topic in TOPICS}
-    for question_id, choice in answers.items():
-        question = diagnostics[question_id]
-        total[question["topic_id"]] += 1
-        if choice == question["correct_choice"]:
-            correct[question["topic_id"]] += 1
-    return {topic: correct[topic] / total[topic] for topic in TOPICS}
-
-
-def select_practice(course, allocations, proficiency):
-    """Up to two approved practice items per allocated topic, never diagnostics."""
-    picked = []
-    for topic_id in TOPICS:
-        if allocations[topic_id] <= 0:
-            continue
-        candidates = [
-            q for q in course["questions"]
-            if q["topic_id"] == topic_id
-            and q["purpose"] == "practice"
-            and q["review_status"] == "approved"
-        ]
-        target_difficulty = 1 if proficiency[topic_id] < 0.4 else (2 if proficiency[topic_id] < 0.7 else 3)
-        candidates.sort(key=lambda q: (q["difficulty"] != target_difficulty, q["question_id"]))
-        picked.extend(candidates[:2])
-    return picked
+        raise ValueError(message)
 
 
 def main():
-    course = load("course.json")
-    cases = load("student_cases.json")
+    course = load_course(DATA / "course.json")
 
-    check(course["schema_version"] == 1, "course schema_version must be 1")
-    check(len(course["questions"]) == 12, "course must hold 12 reviewed questions")
+    with (DATA / "student_cases.json").open(encoding="utf-8") as file:
+        student_cases = json.load(file)
 
-    diagnostics = {
-        q["question_id"]: q for q in course["questions"] if q["purpose"] == "diagnostic"
-    }
-    practice = {
-        q["question_id"]: q for q in course["questions"] if q["purpose"] == "practice"
-    }
-    check(len(diagnostics) == 6, "course must hold 6 diagnostic questions")
-    check(len(practice) == 6, "course must hold 6 practice questions")
-    check(not set(diagnostics) & set(practice), "diagnostic and practice ids must not overlap")
+    check(bool(student_cases["cases"]), "No fictional student cases found")
+    case = student_cases["cases"][0]
 
-    weights = topic_weights(course)
-    for topic in course["topics"]:
-        suggested = weights[topic["topic_id"]]
-        check(
-            math.isclose(topic["importance"], suggested, abs_tol=1e-9),
-            f"{topic['topic_id']} importance {topic['importance']} disagrees with topic_counts",
-        )
+    diagnostic = score_diagnostic(course, case["submitted_choices"])
 
-    case = cases["cases"][0]
-    check(set(case["submitted_choices"]) == set(diagnostics), "case-A must answer every diagnostic item")
-
-    proficiency = score(case["submitted_choices"], diagnostics)
-    expected = case["expected_with_test_weights"]["proficiency"]
-    if cases["test_weights"]["topic_weights"] == {t: 1.0 for t in TOPICS}:
-        check(proficiency == expected, f"scoring drifted: {proficiency} != {expected}")
-
-    snapshot = {
-        "schema_version": 1,
-        "profile_source": "diagnostic",
-        "request": {
-            "budget_minutes": case["budget_minutes"],
-            "proficiency": proficiency,
-            "requested_solver": "exact",
-        },
-        "topic_weights": weights,
-    }
-    check(snapshot["request"]["budget_minutes"] == case["budget_minutes"], "snapshot kept the budget")
-
-    plan = solve_exact(weights, snapshot["request"]["proficiency"], case["budget_minutes"])
-
-    rebuilt = sum(
-        weights[t] * (1 - proficiency[t]) * (1.0 + 0.5 * (plan["allocations"][t] == 60))
-        for t in TOPICS
-        if plan["allocations"][t] > 0
+    expected_scores = case["expected_with_test_weights"]["proficiency"]
+    check(
+        diagnostic.proficiency == expected_scores,
+        "Diagnostic scores differ from the reviewed fictional case",
     )
-    check(math.isclose(plan["utility"], rebuilt, abs_tol=1e-9), "reported utility differs from the model")
 
-    check(plan["feasible"] is True, "plan must be feasible")
-    check(plan["used_minutes"] <= case["budget_minutes"], "plan overspends the budget")
-    check(all(m in (0, 30, 60) for m in plan["allocations"].values()), "allocations must be 0/30/60")
+    request = PlanRequest(
+        budget_minutes=case["budget_minutes"],
+        proficiency=diagnostic.proficiency,
+        requested_solver="exact",
+    )
 
-    picked = select_practice(course, plan["allocations"], proficiency)
-    check(len(picked) >= 1, "at least one practice item is expected for this profile")
-    for item in picked:
-        check(item["purpose"] == "practice", f"{item['question_id']} is not a practice item")
-        check(item["question_id"] in practice, f"{item['question_id']} is not in the practice pool")
+    snapshot = make_snapshot(course, request)
+
+    check(
+        snapshot.request == request,
+        "Snapshot changed the submitted request",
+    )
+
+    restored = validate_snapshot(
+        json.loads(snapshot.model_dump_json())
+    )
+    check(restored == snapshot, "Snapshot JSON round-trip changed its values")
+
+    # Independently verify weights against the specification.
+    for topic_id in TOPICS:
+        if course.assessment_count == 0:
+            expected_weight = 0.5
+        else:
+            frequency = (
+                course.topic_counts[topic_id] / course.assessment_count
+            )
+            expected_weight = 0.5 + 0.5 * frequency
+
         check(
-            plan["allocations"][item["topic_id"]] > 0,
-            f"{item['question_id']} belongs to unfunded topic {item['topic_id']}",
+            math.isclose(
+                snapshot.topic_weights[topic_id],
+                expected_weight,
+                rel_tol=0.0,
+                abs_tol=1e-9,
+            ),
+            f"Incorrect snapshot weight for {topic_id}",
         )
+
+    plan = solve_plan(snapshot.topic_weights, snapshot.request)
+
+    check(set(plan.allocations) == TOPICS, "Plan has incorrect topic IDs")
+
+    for minutes in plan.allocations.values():
         check(
-            item["source_id"] and item["page"] >= 1,
-            f"{item['question_id']} is missing a traceable source",
+            type(minutes) is int and minutes in (0, 30, 60),
+            "Allocation must be an integer: 0, 30, or 60",
         )
 
-    print(f"case            {case['case_id']} budget={case['budget_minutes']}")
-    print(f"weights         {weights}")
-    print(f"proficiency     {proficiency}")
-    print(f"allocation      {plan['allocations']}  used={plan['used_minutes']}  utility={plan['utility']:.4f}")
-    print(f"practice        {[q['question_id'] for q in picked]}")
+    used_minutes = sum(plan.allocations.values())
+    budget = request.budget_minutes
 
-    if failures:
-        for message in failures:
-            print(f"FAIL {message}")
-        return 1
+    check(plan.feasible is True, "Planner reported an infeasible result")
+    check(used_minutes <= budget, "Plan exceeds the budget")
+    check(plan.used_minutes == used_minutes, "Incorrect used-minute total")
+    check(
+        plan.unused_minutes == budget - used_minutes,
+        "Incorrect unused-minute total",
+    )
+    check(plan.actual_solver == "exact", "Incorrect solver label")
+    check(plan.execution_mode == "live", "Incorrect execution label")
+    check(
+        math.isfinite(plan.elapsed_ms) and plan.elapsed_ms >= 0,
+        "Invalid planner duration",
+    )
+    check(plan.quantum_metrics is None, "Exact plan has quantum metrics")
 
-    print("SMOKE PASS")
+    # Recalculate utility without calling the optimizer's utility helpers.
+    expected_utility = 0.0
+
+    for topic_id, minutes in plan.allocations.items():
+        priority = snapshot.topic_weights[topic_id] * (
+            1.0 - request.proficiency[topic_id]
+        )
+
+        if minutes >= 30:
+            expected_utility += priority
+
+        if minutes == 60:
+            expected_utility += 0.5 * priority
+
+        if request.proficiency[topic_id] == 1.0:
+            check(
+                minutes == 0,
+                f"Fully proficient topic {topic_id} received study time",
+            )
+
+    check(
+        math.isclose(
+            plan.utility,
+            expected_utility,
+            rel_tol=0.0,
+            abs_tol=1e-8,
+        ),
+        "Reported utility differs from the independent calculation",
+    )
+
+    print(f"Case:        {case['case_id']}")
+    print(f"Scores:      {diagnostic.proficiency}")
+    print(f"Weights:     {snapshot.topic_weights}")
+    print(f"Allocations: {plan.allocations}")
+    print(f"Used:        {plan.used_minutes} minutes")
+    print(f"Unused:      {plan.unused_minutes} minutes")
+    print(f"Utility:     {plan.utility:.6f}")
+    print("Scoring, snapshot, and planning checks passed.")
+
+    # Retrieval is currently unfinished. Do not substitute a local algorithm.
+    from src.intelligence import rank
+
+    select_questions = getattr(rank, "select_questions", None)
+
+    if not callable(select_questions):
+        print("INCOMPLETE: production practice retrieval is not implemented.")
+        return 2
+
+    items = select_questions(course, plan, diagnostic.proficiency)
+
+    approved_practice = {
+        question.question_id: question
+        for question in course.questions
+        if question.purpose == "practice"
+        and question.review_status == "approved"
+    }
+
+    seen_ids = set()
+    counts = {topic_id: 0 for topic_id in TOPICS}
+
+    for item in items:
+        question_id = item.question_id
+
+        check(question_id not in seen_ids, "Duplicate practice question")
+        check(
+            question_id in approved_practice,
+            f"Question {question_id} is not approved practice",
+        )
+
+        question = approved_practice[question_id]
+
+        check(
+            plan.allocations[question.topic_id] > 0,
+            f"Practice question belongs to unallocated topic {question.topic_id}",
+        )
+
+        seen_ids.add(question_id)
+        counts[question.topic_id] += 1
+
+    for topic_id in TOPICS:
+        expected_count = 2 if plan.allocations[topic_id] > 0 else 0
+        check(
+            counts[topic_id] == expected_count,
+            f"Incorrect practice count for {topic_id}",
+        )
+
+    print(f"Practice:    {sorted(seen_ids)}")
+    print("SMOKE PASS: production classical pipeline checks passed.")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        exit_code = main()
+    except Exception as error:
+        print(f"SMOKE FAIL: {type(error).__name__}: {error}", file=sys.stderr)
+        exit_code = 1
+
+    raise SystemExit(exit_code)
