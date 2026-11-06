@@ -39,14 +39,14 @@ def main():
             for seed in (7,11,23):
                 report=compare_schedule(snapshot,seed=seed)
                 q=report["quantum"]
-                results.append({"case":f"{label}_{size}","choices":size,"budget_minutes":budget,"seed":seed,"exact":report["exact"]["utility"],"greedy":report["greedy"]["utility"],"qaoa":q["raw_best_utility"],"uniform":report["uniform"]["raw_best_utility"],"feasible_rate":q["feasible_shot_rate"],"uniform_feasible_rate":report["uniform"]["feasible_shot_rate"],"gap":report["absolute_utility_gap"],"exact_ms":report["exact"]["elapsed_ms"],"qaoa_ms":q["elapsed_ms"],"evaluations":q["objective_evaluations"],"code_commit":report["code_commit"],"working_tree_dirty":report["working_tree_dirty"]})
+                results.append({"case":f"{label}_{size}","choices":size,"budget_minutes":budget,"seed":seed,"exact":report["exact"]["utility"],"greedy":report["greedy"]["utility"],"qaoa":q["raw_best_utility"],"uniform":report["uniform"]["raw_best_utility"],"feasible_rate":q["feasible_shot_rate"],"uniform_feasible_rate":report["uniform"]["feasible_shot_rate"],"gap":report["absolute_utility_gap"],"exact_ms":report["exact"]["elapsed_ms"],"qaoa_ms":q["elapsed_ms"],"evaluations":q["objective_evaluations"],"initial_selection_probability":q["initial_selection_probability"],"code_commit":report["code_commit"],"working_tree_dirty":report["working_tree_dirty"]})
                 print(f"{label} {size} seed {seed} - exact {report['exact']['utility']:.3f}, greedy {report['greedy']['utility']:.3f}, qaoa {q['raw_best_utility']}, feasible {q['feasible_shot_rate']:.1%}",flush=True)
                 if label=="mixed_gaps" and size==18 and seed==7:
                     full=args.output.with_name("scheduler_example.json")
                     full.parent.mkdir(parents=True,exist_ok=True)
                     full.write_text(json.dumps(report,indent=2,allow_nan=False)+"\n")
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps({"model_version":3,"cases":examples,"settings":{"seeds":[7,11,23],"p":1,"max_evaluations":30,"shots":1024},"results":results},indent=2,allow_nan=False)+"\n")
+    args.output.write_text(json.dumps({"model_version":3,"cases":examples,"settings":{"initial_state":"budget-aware independent ry rotations","seeds":[7,11,23],"p":1,"max_evaluations":30,"shots":1024},"results":results},indent=2,allow_nan=False)+"\n")
 
 
 if __name__=="__main__":

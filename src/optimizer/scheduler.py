@@ -170,10 +170,14 @@ def compare_schedule(snapshot,seed=7,evaluations=30,shots=1024):
     data=landscape(snapshot)
     n=len(snapshot.sessions)
     energies=data["energies"]
-    initial_state=Statevector.from_label("+"*n)
+    uniform_state=Statevector.from_label("+"*n)
+    occupancy=min(.35,max(.02,snapshot.profile.request.budget_minutes/(float(np.mean([s.minutes for s in snapshot.sessions]))+15)/n))
+    preparation=QuantumCircuit(n)
+    preparation.ry(2*np.arcsin(np.sqrt(occupancy)),range(n))
+    initial_state=Statevector.from_instruction(preparation)
     initial=np.random.default_rng(seed).uniform(0,np.pi,2)
-    initial_state.seed(seed)
-    uniform_counts={key:int(val) for key,val in initial_state.sample_counts(shots).items()}
+    uniform_state.seed(seed)
+    uniform_counts={key:int(val) for key,val in uniform_state.sample_counts(shots).items()}
     uniform_valid=[int(key,2) for key in uniform_counts if data["valid"][int(key,2)]]
     uniform_best=max(uniform_valid,key=lambda i:selection_key(i,data)) if uniform_valid else None
     uniform_rate=sum(count for key,count in uniform_counts.items() if data["valid"][int(key,2)])/shots
@@ -201,4 +205,4 @@ def compare_schedule(snapshot,seed=7,evaluations=30,shots=1024):
     root=Path(__file__).resolve().parents[2]
     commit=subprocess.run(["git","rev-parse","HEAD"],cwd=root,capture_output=True,text=True,check=True).stdout.strip()
     dirty=bool(subprocess.run(["git","status","--porcelain"],cwd=root,capture_output=True,text=True,check=True).stdout.strip())
-    return {"schema_version":3,"created_utc":datetime.now(timezone.utc).isoformat(),"code_commit":commit,"working_tree_dirty":dirty,"profile":snapshot.model_dump(mode="json"),"execution_mode":"live","reference":"https://quantum.cloud.ibm.com/docs/en/tutorials/quantum-approximate-optimization-algorithm","versions":{name:version(name) for name in ("qiskit","numpy","scipy")},"exact":exact,"greedy":greedy_schedule(snapshot),"uniform":{"raw_best_utility":None if uniform_best is None else float(data["utility"][uniform_best]),"feasible_shot_rate":uniform_rate},"quantum":{"qubits":n,"p":1,"seed":seed,"shots":shots,"objective_evaluations":len(trace),"initial_params":initial.tolist(),"cost_scale":data["penalty"],"parameter_order":["beta","gamma"],"params":opt.x.tolist(),"optimizer_success":bool(opt.success),"expected_energy":float(opt.fun),"best_sample":sampled,"raw_best_utility":None if sampled is None else sampled["utility"],"feasible_shot_rate":rate,"elapsed_ms":elapsed,"counts":counts,"trace":trace},"absolute_utility_gap":None if sampled is None else abs(exact["utility"]-sampled["utility"])}
+    return {"schema_version":3,"created_utc":datetime.now(timezone.utc).isoformat(),"code_commit":commit,"working_tree_dirty":dirty,"profile":snapshot.model_dump(mode="json"),"execution_mode":"live","reference":"https://quantum.cloud.ibm.com/docs/en/tutorials/quantum-approximate-optimization-algorithm","versions":{name:version(name) for name in ("qiskit","numpy","scipy")},"exact":exact,"greedy":greedy_schedule(snapshot),"uniform":{"raw_best_utility":None if uniform_best is None else float(data["utility"][uniform_best]),"feasible_shot_rate":uniform_rate},"quantum":{"qubits":n,"p":1,"seed":seed,"shots":shots,"objective_evaluations":len(trace),"initial_params":initial.tolist(),"initial_selection_probability":occupancy,"cost_scale":data["penalty"],"parameter_order":["beta","gamma"],"params":opt.x.tolist(),"optimizer_success":bool(opt.success),"expected_energy":float(opt.fun),"best_sample":sampled,"raw_best_utility":None if sampled is None else sampled["utility"],"feasible_shot_rate":rate,"elapsed_ms":elapsed,"counts":counts,"trace":trace},"absolute_utility_gap":None if sampled is None else abs(exact["utility"]-sampled["utility"])}
