@@ -34,7 +34,6 @@ assert result["used_minutes"] == 0
 # equal priorities, prefer the earlier topic.
 all_wrong = {"T1": 0.0, "T2": 0.0, "T3": 0.0}
 result = solve_exact(weights, all_wrong, 30)
-print(result["allocations"])
 assert result["allocations"] == {"T1": 30, "T2": 0, "T3": 0}
 
 # changing the student changes plan
@@ -47,5 +46,26 @@ assert solve_exact(weights, student_a, 90)["allocations"] == {
 assert solve_exact(weights, student_b, 90)["allocations"] == {
     "T1": 60, "T2": 0, "T3": 30
 }
+
+# boundary cases
+for budget in (0, 15, 45, 180):
+    result = solve_exact(weights, scores, budget)
+    assert result["feasible"]
+    assert is_feasible(result["allocations"], budget)
+    assert result["used_minutes"] == sum(result["allocations"].values())
+    assert result["unused_minutes"] == budget - result["used_minutes"]
+
+    if budget < 30:
+        assert result["used_minutes"] == 0
+    if budget == 45:
+        assert result["used_minutes"] == 30
+
+# feasibility checks
+assert not is_feasible({"T1": 60, "T2": 60, "T3": 0}, 90)
+assert not is_feasible({"T1": 45, "T2": 0, "T3": 0}, 90)
+assert not is_feasible({"T1": 90, "T2": 0, "T3": 0}, 180)
+assert not is_feasible({"T1": 0, "T2": 0}, 90)
+
+#
 
 print("additional checks passed")
