@@ -143,3 +143,13 @@ class ProfileSnapshot(BaseModel):
             )
 
         return value
+
+class PracticeItem(BaseModel):
+    question_id: str = Field(min_length=1)
+    score: float = Field(
+        ge=0,
+        le=1,
+        allow_inf_nan=False,
+        strict=True,
+    )
+    reason: str = Field(min_length=1)
