@@ -95,3 +95,22 @@ class CourseData(BaseModel):
         Annotated[int, Field(ge=0, strict=True)],
     ]
 
+class DiagnosticResult(BaseModel):
+    submitted_choices: dict[str, str]
+    proficiency: dict[
+        str,
+        Annotated[
+            float,
+            Field(ge=0, le=1, allow_inf_nan=False, strict=True),
+        ],
+    ]
+
+    @field_validator("proficiency")
+    @classmethod
+    def check_proficiency_keys(cls, value):
+        if set(value) != {"T1", "T2", "T3"}:
+            raise ValueError(
+                "proficiency must contain exactly T1, T2, and T3"
+            )
+
+        return value
