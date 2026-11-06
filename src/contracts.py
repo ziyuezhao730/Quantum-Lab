@@ -144,3 +144,15 @@ class PracticeItem(BaseModel):
     question_id: str
     score: float = Field(ge=0, le=1, allow_inf_nan=False)
     reason: str
+
+
+class StudyRequest(PlanRequest):
+    budget_minutes: int = Field(ge=0, le=1440, strict=True)
+    block_minutes: Literal[15] = 15
+    focus_minutes: Literal[45] = 45
+    break_minutes: Literal[15] = 15
+
+
+class StudySnapshot(ProfileSnapshot):
+    schema_version: Literal[2] = 2
+    request: StudyRequest

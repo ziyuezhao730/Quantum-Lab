@@ -14,6 +14,7 @@ from qiskit.quantum_info import SparsePauliOp, Statevector
 from scipy.optimize import minimize
 
 from src.intelligence.validate import validate_snapshot
+from src.contracts import StudySnapshot
 from src.optimizer.classical import solve_plan
 from src.optimizer.model import (
     BIT_ORDER, TOPICS, binary_to_ising, build_binary_model,
@@ -29,7 +30,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def load_profile(path):
     """load & validate the exported snapshot"""
-    return validate_snapshot(json.loads(Path(path).read_text()))
+    candidate=json.loads(Path(path).read_text())
+    return StudySnapshot.model_validate(candidate) if candidate.get("schema_version")==2 else validate_snapshot(candidate)
 
 
 def cost_operator(model):
@@ -128,6 +130,9 @@ def run_qaoa(snapshot):
 
 def compare(snapshot):
     """same profile for exact & qaoa, save original inputs"""
+    if isinstance(snapshot,StudySnapshot):
+        from src.optimizer.session_quantum import compare_session
+        return compare_session(snapshot)
     snapshot = validate_snapshot(snapshot)
     exact_request = snapshot.request.model_copy(update={"requested_solver": "exact"})
     exact = solve_plan(snapshot.topic_weights, exact_request)
