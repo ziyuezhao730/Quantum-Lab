@@ -18,15 +18,17 @@ python3 -m pytest tests/ evidence/risi/check_quantum_model.py evidence/risi/chec
 python3 scripts/smoke.py
 ```
 
-fictional demo - case-a in data/demo/student_cases.json
-answer ids in question order - A, B, A, B, C, A
-budget - 90 minutes
-expected scores - 1/0/.5
-expected plan - 0/60/30
-expected utility with actual weights - 1.416667
+dashboard workflow
+1. answer the one-question-at-a-time diagnostic dialog, shown once per browser session.
+2. set hours & extra minutes in the sidebar, up to 24 hours total.
+3. build the plan, use Study plan / Practice / Quantum lab tabs.
+4. changing the budget or retaking the diagnostic clears old plans & comparisons.
 
-change an answer or budget - old output & download disappear until resubmission.
-zero budget - no study blocks, valid snapshot still downloadable.
+fictional case-a answers in question order - A, B, A, B, C, A.
+10-hour budget gives 450 study minutes, 135 break minutes & 15 minutes spare.
+case-a allocations - T1=0, T2=285, T3=165 minutes.
+all data stays in session memory. a page reload starts a new browser session.
+
 
 quantum handoff
 1. use the app with fictional demo answers, generate a plan & download profile json.
@@ -47,6 +49,8 @@ python3 -m evidence.risi.export_fictional_profile
 ```
 
 all computations run offline after dependencies are installed.
-the app uses exact planning; quantum simulation is a separate script.
+the app uses exact planning & offers a bounded local comparison in Quantum lab.
+schema-2 exports also work with the separate quantum command.
+the original schema-1 experiment remains supported independently.
 no api keys, accounts, network services or quantum hardware are required.
 source & dependency changes require rerunning these checks before release.

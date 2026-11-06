@@ -1,23 +1,18 @@
-examace ui - integrated workflow
+dashboard ui - schema 2
 
-app.py calls validated course loading, key-based diagnostic scoring, snapshot export,
-exact planning & approved-practice retrieval. fixed test scores are removed.
+warm paper theme, restrained green accents & separate study/practice/experiment tabs.
+diagnostic appears as a step-by-step dialog once per browser session.
+retake opens it again & clears old scores, plans & quantum output.
 
-src/ui/inputs.py retains charlie's unanswered radio controls & change callback.
-integer budget - 0..180, step 1. callback drops the saved plan immediately.
-one generate button runs the pipeline. snapshot download appears only after submission.
+sidebar - hours & extra minutes, 0..24 hours, breaks included.
+plan - focused study, breaks, spare time, topic allocations & a rotating focus timeline.
+practice - approved targeted items, source/page, reason & optional answer reveal.
+quantum lab - bounded same-session compact qaoa simulation, honest sampled results.
 
-results show Initial topic score from two questions, used/unused minutes,
-exact/live labels, topic allocation & source-linked practice with answer reveals.
-practice includes difficulty & matching reason. null answers & shortages are labelled.
-profile download is the shared ProfileSnapshot schema, no identity fields.
+legacy original model & evidence remain separate as schema 1.
+current exports use schema 2. answers remain in session memory, not browser storage.
 
-verification - tests/test_ui.py, tests/test_retrieval.py & tests/test_intelligence.py
-142 tests pass in the full relevant suite, no skips. smoke passes.
-real browser - case-a submitted, 0/60/30 plan displayed, profile downloaded,
-budget edit cleared old output/download, plan regenerated.
-
-charlie's earlier screenshots describe the previous test-mode branch.
-new browser screenshot - evidence/risi/app_results.jpg
-ai assistance - codex integrated the existing ui & supplied retrieval/tests.
-no independent human review or personal rehearsal claimed.
+checks - 169 passed, no skips. test_ui covers popup progression, retake, stale state,
+zero budget, readable errors, shortages, snapshot export & ten-hour quantum run.
+browser walkthrough verified case-a & a ten-hour budget, profile download & tabs.
+ai-assisted implementation & checks, no independent human review claimed.
