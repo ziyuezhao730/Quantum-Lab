@@ -1,4 +1,4 @@
-weights: T1=1 T2=2 T3=3
+weights - T1=1 T2=1 T3=1
 proficiency: T1=0.8 T2=0.2 T3=0.4
 budget: 90 mins
 
@@ -19,7 +19,7 @@ best allocs is t1=0, t2=60, t3=30
 utility being 0.8+0.4+0.6=1.8, using all 90 mins
 
 solver checks 27 allocations (the entire permutation)
-tying utility prefers fewer blocks
+tying utility prefers fewer blocks, then more blocks for earlier topic ids
 
 r2 cost model:
 bit order: x11,x12,x21,x22,x31,x32,y0,y1,y2
@@ -45,7 +45,7 @@ checks: python3 -m pytest evidence/risi/check_quantum_model.py -q
 covers 0, 3, 6 blocks; empty, optimal and invalid plans
 checks offset, bit order, partial budget and nonunit weights
 invalid-order example: -1.5+3.4 = 1.9
-ai-assisted self-checks, no independent review or qiskit run yet
+r2 checks are ai-assisted self-checks, r3 simulation recorded below
 
 
 r3 run:
@@ -68,3 +68,15 @@ code was uncommitted during this run, report records that
 commit source first, rerun later for evidence tied to a source commit
 saved json is live-run evidence, viewing it later is replay of that saved profile
 r3 self-checks are ai-assisted, not independent review
+
+
+r4 evidence - evidence/risi/r4_comparison.json
+source commit - 2a74c42, clean tree at simulation time
+snapshot - evidence/risi/fictional_profile.json, production export of fictional case-a
+same scores, weights & budget for both solvers
+exact util - 1.416667, sampled util - .666667, gap - .75
+feasible shots - 86/1024, 30 evaluations, stopped at cap
+replay - python3 -m evidence.risi.replay_comparison
+replay reads saved inputs, never follows later app edits
+checks - python3 -m pytest evidence/risi/check_r4.py -q
+ai generated code & ran checks, no independent human review claimed
