@@ -34,10 +34,64 @@ class PlanResult(BaseModel):
     elapsed_ms: float = Field(ge=0, allow_inf_nan=False, strict=True)
     warnings: list[str] = Field(default_factory=list)
     quantum_metrics: QuantumMetrics | None = None
-
+    
     @field_validator("allocations")
     @classmethod
     def check_allocation_keys(cls, value):
         if set(value) != {"T1", "T2", "T3"}:
             raise ValueError("allocations must contain exactly T1, T2, and T3")
         return value
+
+
+
+class Evidence(BaseModel):
+    source_id: str = Field(min_length=1)
+    page: int = Field(ge=1, strict=True)
+    excerpt: str = Field(min_length=1)
+
+
+class Source(BaseModel):
+    source_id: str = Field(min_length=1)
+    kind: str = Field(min_length=1)
+    provenance: str = Field(min_length=1)
+    label: str | None = None
+    filename: str | None = None
+
+
+class Topic(BaseModel):
+    topic_id: Literal["T1", "T2", "T3"]
+    name: str = Field(min_length=1)
+    importance: float = Field(
+        ge=0,
+        le=1,
+        allow_inf_nan=False,
+        strict=True,
+    )
+    evidence: list[Evidence]
+
+
+class Question(BaseModel):
+    question_id: str = Field(min_length=1)
+    topic_id: Literal["T1", "T2", "T3"]
+    text: str = Field(min_length=1)
+    difficulty: Literal[1, 2, 3]
+    purpose: Literal["diagnostic", "practice"]
+    source_id: str = Field(min_length=1)
+    page: int = Field(ge=1, strict=True)
+    review_status: Literal["pending", "approved"]
+    answer: str | None = None
+    choices: dict[str, str] | None = None
+    correct_choice: str | None = None
+
+
+class CourseData(BaseModel):
+    schema_version: Literal[1]
+    topics: list[Topic]
+    questions: list[Question]
+    sources: list[Source]
+    assessment_count: int = Field(ge=0, strict=True)
+    topic_counts: dict[
+        str,
+        Annotated[int, Field(ge=0, strict=True)],
+    ]
+
