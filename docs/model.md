@@ -80,3 +80,10 @@ replay - python3 -m evidence.risi.replay_comparison
 replay reads saved inputs, never follows later app edits
 checks - python3 -m pytest evidence/risi/check_r4.py -q
 ai generated code & ran checks, no independent human review claimed
+
+
+r5 verification - evidence/risi/release_notes.md
+guide - evidence/risi/quantum_guide.pdf, actual code & 30-minute reading route
+demo - evidence/risi/demo_script.md
+127 passed, 6 retrieval checks skipped, smoke incomplete at ranking
+optimizer implementation ready for review, integrated product release still blocked
