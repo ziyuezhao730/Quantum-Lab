@@ -66,6 +66,33 @@ assert not is_feasible({"T1": 45, "T2": 0, "T3": 0}, 90)
 assert not is_feasible({"T1": 90, "T2": 0, "T3": 0}, 180)
 assert not is_feasible({"T1": 0, "T2": 0}, 90)
 
-#
+# label checks
+result = solve_exact(weights, scores, 90)
+
+assert result["actual_solver"] == "exact"
+assert result["execution_mode"] == "live"
+assert result["elapsed_ms"] >= 0
+assert result["warnings"] == []
+assert result["quantum_metrics"] is None
+
+# invalid input
+
+bad_inputs = [
+    (weights, scores, -1),
+    (weights, scores, 181),
+    (weights, scores, 30.5),
+    (weights, scores, True),
+    ({"T1": 1.1, "T2": 1.0, "T3": 1.0}, scores, 90),
+    (weights, {"T1": float("nan"), "T2": 0.2, "T3": 0.4}, 90),
+]
+
+for test_weights, test_scores, test_budget in bad_inputs:
+    try:
+        solve_exact(test_weights, test_scores, test_budget)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("error: accepts invalid input")
 
 print("additional checks passed")
+
