@@ -41,7 +41,7 @@ with st.sidebar:
         end_hour=st.selectbox("Available until",list(range(7,25)),index=6,format_func=lambda h:f"{h:02d}:00",key="available_end",on_change=clear_plan)
         exam_days={}
         for topic in course.topics:
-            exam_days[topic.topic_id]=st.selectbox(f"{topic.name} exam",[1,2,3],index=1 if topic.topic_id=="T1" else 2,format_func=lambda d:f"Day {d}",key=f"exam_{topic.topic_id}",on_change=clear_plan)
+            exam_days[topic.topic_id]=st.selectbox(f"{topic.name} exam",[1,2,3],index=1 if topic.topic_id=="T1" else 2,format_func=lambda d:f"Day {d} · {end_hour:02d}:00",key=f"exam_{topic.topic_id}",on_change=clear_plan)
         prepare=st.checkbox("Review before practice",value=True,key="prepare",on_change=clear_plan)
     st.divider()
     if st.button("Retake diagnostic",key="retake",use_container_width=True):
@@ -113,7 +113,8 @@ with experiment_tab:
     if benchmark_path.exists():
         with st.expander("Saved example runs"):
             benchmark=json.loads(benchmark_path.read_text())
-            st.dataframe(benchmark["results"],hide_index=True,use_container_width=True)
+            rows=[{"Case":r["case"].replace("_"," "),"Options":r["choices"],"Seed":r["seed"],"Exact":round(r["exact"],3),"Greedy":round(r["greedy"],3),"QAOA":None if r["qaoa"] is None else round(r["qaoa"],3),"Feasible samples":f"{r['feasible_rate']:.1%}"} for r in benchmark["results"]]
+            st.dataframe(rows,hide_index=True,use_container_width=True)
 
 if st.session_state.get("diag_open",False):
     diagnostic_dialog(course)

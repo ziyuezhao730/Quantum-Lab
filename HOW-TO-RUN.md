@@ -19,15 +19,15 @@ python3 scripts/smoke.py
 ```
 
 dashboard workflow
-1. answer the one-question-at-a-time diagnostic dialog, shown once per browser session.
-2. set hours & extra minutes in the sidebar, up to 24 hours total.
-3. build the plan, use Study plan / Practice / Quantum lab tabs.
-4. changing the budget or retaking the diagnostic clears old plans & comparisons.
+1. complete the diagnostic dialog.
+2. set total hours & extra minutes, including breaks.
+3. open Availability & exams. choose planning days, focus length, daily time window & exam days.
+4. build the schedule, then open Practice or Quantum lab.
+5. changing the budget, availability, exam days or diagnostic clears old output.
 
-fictional case-a answers in question order - A, B, A, B, C, A.
-10-hour budget gives 450 study minutes, 135 break minutes & 15 minutes spare.
-case-a allocations - T1=0, T2=285, T3=165 minutes.
-all data stays in session memory. a page reload starts a new browser session.
+candidate focus sessions use 15/30/45 minutes. a break separates selected sessions.
+up to 18 candidate sessions keep the local simulator bounded.
+fictional case-a answers - A, B, A, B, C, A.
 
 
 quantum handoff
@@ -50,7 +50,14 @@ python3 -m evidence.risi.export_fictional_profile
 
 all computations run offline after dependencies are installed.
 the app uses exact planning & offers a bounded local comparison in Quantum lab.
-schema-2 exports also work with the separate quantum command.
+schema-3 interacting schedules work with the same quantum command.
+schema-1 & schema-2 exports remain supported.
 the original schema-1 experiment remains supported independently.
 no api keys, accounts, network services or quantum hardware are required.
 source & dependency changes require rerunning these checks before release.
+
+fixed solver comparison
+```bash
+python3 scripts/benchmark_scheduler.py
+```
+outputs go to ignored runtime/. recorded fictional examples are in evidence/risi/.

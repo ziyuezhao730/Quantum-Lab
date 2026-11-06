@@ -1,3 +1,6 @@
+current handoff - see docs/delivery/results.md & docs/scheduler.md.
+the notes below record earlier allocation-only milestones.
+
 r4 & r5 handoff
 
 tested code commit - 545b1484eaed5c2ad171a854e03f88e4829f820f

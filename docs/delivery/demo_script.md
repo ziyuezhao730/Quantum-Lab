@@ -1,3 +1,5 @@
+current presentation - see final_demo.md. this file preserves the original small-model script.
+
 # ExamAce — Hank's demo script (bilingual)
 
 Four-minute demo, per docs/01_requirements.md section 9. Hank speaks twice:
