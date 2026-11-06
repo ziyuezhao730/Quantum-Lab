@@ -2,33 +2,27 @@ import streamlit as st
 
 
 def render_results(scores, allocation):
-    st.header("Your Personalized Study Plan")
-
-    st.subheader("Diagnostic Scores")
-
-    for topic, score in scores.items():
-        st.write(f"**{topic}** — {score:.0%}")
-        st.progress(float(score))
-
-    st.subheader("Recommended Study Time")
-
-    total_minutes = sum(allocation.values())
-    st.metric("Total Study Time", f"{total_minutes} minutes")
-
-    for topic, minutes in allocation.items():
-        st.write(f"**{topic}** — {minutes} minutes")
-
-    st.bar_chart(allocation)
+    st.header("your study plan")
+    st.subheader("Initial topic score from two questions")
+    st.caption("a coarse initial signal, not a mastery estimate or grade prediction")
+    cols=st.columns(3)
+    for col,(topic,score) in zip(cols,scores.items()):
+        col.metric(topic,f"{score:.0%}")
+    st.subheader("recommended study time")
+    for topic,minutes in allocation.items():
+        st.write(f"**{topic}** - {minutes} minutes")
+    st.caption("exact classical optimization, utility is a study-priority heuristic")
 
 
 def render_practice_questions(questions):
-    st.subheader("Recommended Practice Questions")
-
-    for i, question in enumerate(questions):
+    st.subheader("targeted practice")
+    for q in questions:
         with st.container(border=True):
-            st.write(f"**Question {i + 1}: {question['text']}**")
-
-            st.caption(f"Source: {question['source']}")
-
-            with st.expander("Show Answer"):
-                st.write(question["answer"])
+            st.write(q["text"])
+            st.caption(f"{q['topic']} - difficulty {q['difficulty']} - {q['source']}, page {q['page']}")
+            st.caption(q["reason"])
+            if q["answer"] is None:
+                st.info("answer unavailable")
+            else:
+                with st.expander("show answer"):
+                    st.write(q["answer"])

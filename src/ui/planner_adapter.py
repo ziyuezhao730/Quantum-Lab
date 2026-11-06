@@ -1,52 +1,21 @@
-
-import json
+"""compatibility helpers for the earlier ui branch"""
 from pathlib import Path
+from src.contracts import PlanRequest
+from src.intelligence.pipeline import load_course,make_snapshot
 
 
 def load_course_data():
-    """Load the approved demo course data."""
-    course_path = (
-        Path(__file__).resolve().parents[2]
-        / "data"
-        / "demo"
-        / "course.json"
-    )
-
-    with course_path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+    return load_course(Path(__file__).resolve().parents[2]/"data/demo/course.json").model_dump()
 
 
 def get_topic_weights(course):
-    """Convert course topics into optimizer weights."""
-    return {
-        topic["topic_id"]: topic["importance"]
-        for topic in course["topics"]
-    }
+    request=PlanRequest(budget_minutes=0,proficiency={"T1":0.,"T2":0.,"T3":0.},requested_solver="exact")
+    return make_snapshot(course,request).topic_weights
 
 
 def get_topic_names(course):
-    """Map topic IDs to readable names."""
-    return {
-        topic["topic_id"]: topic["name"]
-        for topic in course["topics"]
-    }
+    return {t["topic_id"]:t["name"] for t in course["topics"]}
+
 
 def get_practice_questions(course):
-    """Return approved practice questions for the UI."""
-    practice_questions = []
-
-    for question in course["questions"]:
-        if (
-            question["purpose"] == "practice"
-            and question["review_status"] == "approved"
-        ):
-            practice_questions.append({
-                "text": question["text"],
-                "source": (
-                    f"{question['source_id']}, "
-                    f"page {question['page']}"
-                ),
-                "answer": question["answer"],
-            })
-
-    return practice_questions
+    return [{"text":q["text"],"source":f"{q['source_id']}, page {q['page']}","answer":q["answer"]} for q in course["questions"] if q["purpose"]=="practice" and q["review_status"]=="approved"]

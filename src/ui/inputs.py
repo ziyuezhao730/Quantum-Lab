@@ -1,7 +1,4 @@
 
-import json
-from pathlib import Path
-
 import streamlit as st
 
 
@@ -9,37 +6,16 @@ def clear_previous_plan():
     st.session_state.pop("plan", None)
 
 
-def load_diagnostic_questions():
-    """Load approved diagnostic questions from the course data."""
-    course_path = (
-        Path(__file__).resolve().parents[2]
-        / "data"
-        / "demo"
-        / "course.json"
-    )
-
-    with course_path.open("r", encoding="utf-8") as file:
-        course = json.load(file)
-
-    topics = {
-        topic["topic_id"]: topic["name"]
-        for topic in course["topics"]
-    }
-
-    questions = [
-        question
-        for question in course["questions"]
-        if question["purpose"] == "diagnostic"
-        and question["review_status"] == "approved"
-    ]
-
-    return questions, topics
+def load_diagnostic_questions(course):
+    questions=[q.model_dump() for q in course.questions if q.purpose=="diagnostic" and q.review_status=="approved"]
+    topics={t.topic_id:t.name for t in course.topics}
+    return questions,topics
 
 
-def render_inputs():
+def render_inputs(course):
     st.header("ExamAce - Diagnostic Quiz")
 
-    questions, topics = load_diagnostic_questions()
+    questions, topics = load_diagnostic_questions(course)
     answers = {}
 
     for i, question in enumerate(questions):
@@ -65,7 +41,8 @@ def render_inputs():
         min_value=0,
         max_value=180,
         value=60,
-        step=5,
+        step=1,
+        key="budget",
         on_change=clear_previous_plan,
     )
 
